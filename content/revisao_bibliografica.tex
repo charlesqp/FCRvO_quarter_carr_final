@@ -223,20 +223,53 @@ Dado que:
         \omega_d=\omega_n\sqrt{1-\xi^2}
 \end{equation}
     
-\subsection{Observador de Luenberger}\label{sc:luemberger}    
+\subsection{Observador de Luenberger}\label{sc:luemberger}
 
-    Considere o par $(A,b)$ controlável, com $A \in \mathbb{R}^{n*n}$ e $b \in \mathbb{R}^{n*1}$. Dada uma matriz $F \in \mathbb{R}^{n*n}$ arbitrária com os autovalores desejados para a resposta do sistema dinâmico em malha fechada, é possível encontrar um vetor de ganhos de realimentação $K\in \mathbb{R}^{1*n}$ tal que $eig(A-b*K)=eig(F)$ desde que $eig(A)\neq eig(F)$ através dos seguintes passos:
+Considere o sistema linear e invariante no tempo representado a seguir pela equação \ref{eq:linsys}:
+
+\begin{equation}\label{eq:linsys}
+    \begin{split}
+        \dot{x}(t)=&Ax(t)+B_uu(t)+B_ww(t)\\
+              y(t)=&Cx(t)+D_uu(t)+D_ww(t)
+    \end{split}
+\end{equation}
+
+Considere também o observador de estados linear de Luenberger representado a seguir pela equação \ref{eq:linLue}: 
+
+\begin{equation}\label{eq:linLue}
+    \begin{split}
+        \hat{\dot{x}}(t)=&(A-LC)\hat{x}(t) + Ly(t) 
+    \end{split}
+\end{equation}
+
+Onde $x \in \Re^{n*1}$ é o vetor de estados do sistema, $u \in \Re^{r*1}$ é o vetor de entrada de controle, $w \in \Re^{p*1}$ é o vetor de entrada de perturbação, $A \in \Re^{n*n}$, $B \in \Re^{n*1}$, $C \in \Re^{m*n}$, $D_u \in \Re^{1*1}$ e $D_w \in \Re^{1*1}$ são as matrizes do sistema, $y \in \Re^{m*1}$ é o vetor de saídas, $z \in \Re^{n*1}$ é o vetor de estados preditos, e $L\in \Re^{n*1}$ é o vetor de ganhos do observador.
+
+Considere o par $(A,C)$ completamente observável. O que implica que a matriz de observabilidade:
+
+\begin{equation}\label{eq:Matrix:MO}
+    \mathbb{M_O}=
+    \begin{bmatrix}
+        C^'&A^'C^'&(A^')^2C^'&\dots&(A^')^{n-1}C^'\\
+    \end{bmatrix}        
+\end{equation}
+
+Possui $rank(\mathbb{M_O}) = n$
+ 
+Se o par $(A,C)$ for completamente observável é possível encontrar um vetor de ganhos $L\in \Re^{n*1}$ que faça com que o conjunto de autovalores de $A-L*C$ corresponda ao conjunto de autovalores de qualquer matriz $F \in \Re^{n*n}$ arbitrariamente escolhida. 
+Definindo-se o erro de estimação de estado como $e=x-\hat(x)$, $L$ deve ser escolhido de maneira que leve $(A-LC)$ à estabilidade rapidamente e sem grandes oscilações), ou seja, L deve fazer com que o erro de observação e,
+qualquer que seja o erro inicial, convirja para zero o mais rapidamente possível. Para isso, é muito importante que o observador seja mais rápido 
+que o sistema que ele observa, assim ele não introduz erros significativos na dinâmica do sistema controlado. A escolha conveniente dos autovalores de $(A-LC)$ faz com que o erro $e\rightarrow0$ assintoticamente. 
+O conjunto de autovalores de $(A-LC)$ pode ser escolhida pela resolução da equação de Lyapunov.
     
-    \begin{enumerate}
-        \item Escolha uma matriz $F \in \mathbb{R}^{n*n}$ com os autovalores desejados.
-        \item Escolha um $\bar{k}$ arbitrário tal que $(F,\bar{k})$ seja observável.
-        \item {Obtenha a única solução $T$ da equação de Lyapunov
-        \begin{equation} \label{eq:lyapunov}
-            AT-TF=b\bar{k}
-        \end{equation}}
-        \item {Compute o ganho de realimentação:
-        \begin{equation} \label{eq:ganho}
-            K=\bar{k}T^{-1}
-        \end{equation}}
-    \end{enumerate}
-    
+\begin{enumerate}
+    \item Define-se uma matriz $F \in \Re^{n*n}$ com os autovalores desejados, pelo menos 3 vezes mais rápidos do que o autovalor mais rápido do sistema.
+    \item Escolhe-se uma matriz $\bar{k}$ arbitrário tal que $(F,\bar{k})$ seja observável.
+    \item {Obtém-se a solução única $T$ da equação de Lyapunov
+    \begin{equation} \label{eq:lyapunov}
+            A'T-TF=C'\bar{k}
+    \end{equation}}
+    \item {Computa-se o ganho de realimentação:
+    \begin{equation} \label{eq:ganho}
+            L=\bar{k}T^{-1}
+    \end{equation}}
+\end{enumerate}    
