@@ -205,20 +205,9 @@ Minas Gerais - Av. Antônio Carlos 6627, 31270-901, Belo Horizonte, MG, Brasil\\
     \end{equation}
         
     Pode-se observar em \ref {eq:autovalores} que o sistema possui, como autovalores, dois pares de autovalores complexos conjugados com parte real negativa. Logo, pode-se concluir que o sistema é estável internamente. Como estabilidade interna implica em BIBO estabilidade, pode-se dizer que o sistema também é BIBO estável.
-    Na figura \ref{fig:autovalores_malha_aberta} abaixo podemos observar a localização dos autovalores em malha aberta do sistema linearizado no plano imaginário.
+    Na figura abaixo podemos observar a localização dos autovalores em malha aberta do sistema linearizado no plano imaginário.
     
-    \FloatBarrier
-    \begin{figure}[htbp]
-        \begin{centering}
-            \includegraphics[width=8cm]{img/autovalores_malha_aberta.png}
-            \includegraphics[width=3cm]{img/autovalores_malha_aberta_leg.png}
-            \caption{Autovalores do sistema linearizado em malha aberta}
-            \label{fig:autovalores_malha_aberta}
-        \end{centering}
-    \end{figure}
-    \FloatBarrier
-    
-    Através do gráfico da figura \ref{fig:autovalores_malha_aberta}, pode-se observar que o sistema possui um par de autovalores dominantes, com frequência de oscilação da resposta de $8.4588 rad.s^{-1}$ e taxa de amortecimento de $0.1124$. Além disso, o sistema possui um outro par de autovalores não dominantes com frequência de oscilação da resposta de $72.3231 rad.s^{-1}$ e taxa de decaimento de $0.1235$
+    Através do gráfico da figura , pode-se observar que o sistema possui um par de autovalores dominantes, com frequência de oscilação da resposta de $8.4588 rad.s^{-1}$ e taxa de amortecimento de $0.1124$. Além disso, o sistema possui um outro par de autovalores não dominantes com frequência de oscilação da resposta de $72.3231 rad.s^{-1}$ e taxa de decaimento de $0.1235$
     
         \subsection{Análise da Controlabilidade e da observabilidade do sistema linearizado}
     
@@ -350,20 +339,9 @@ Desta maneira obtemos a seguinte disposição de autovalores para o sistema em m
         \end{bmatrix}
     \end{equation}
 
-Uma comparação entre os autovalores de malha aberta e malha fechada é exibida na figura \ref{fig:autovalores_malha_fechada} exibida a seguir.
-
-    \FloatBarrier
-    \begin{figure}[htbp]
-        \begin{centering}
-            \includegraphics[width=8cm]{img/autovalores_malha_fechada.png}
-            \includegraphics[width=7cm]{img/autovalores_malha_fechada_leg.png}
-            \caption{Comparação entre os Autovalores do sistema linearizado em malha aberta e malha fechada}
-            \label{fig:autovalores_malha_fechada}
-        \end{centering}
-    \end{figure}
-    \FloatBarrier
+Uma comparação entre os autovalores de malha aberta e malha fechada é exibida na figura exibida a seguir.
     
-    O ganho de realimentação para alocação de autovalores em malha fechada é computado através da equação de Lyapunov conforme descrito na seção \ref{sc:lyapunov} conforme exibido a seguir:
+    O ganho de realimentação para alocação de autovalores em malha fechada é computado através da equação de Lyapunov conforme descrito na seção   conforme exibido a seguir:
     
     \begin{equation*} 
     \begin{split}
@@ -414,16 +392,7 @@ Uma comparação entre os autovalores de malha aberta e malha fechada é exibida
         \subsection{Simulação da resposta temporal do modelo linearizado em malha fechada com controlador por realimentação de estados} \label{sc:analise_resposta}
     
     Abaixo seguem gráficos que ilustram a simulação temporal da resposta do sistema linearizado para excitação com entrada em "lombada" degrau de 0.1m:
-    \FloatBarrier
-    \begin{figure}[htbp]
-        \begin{centering}
-            \includegraphics[width=8cm]{img/simulaca_temporal_linear_realimentacao.png}
-            \includegraphics[width=8cm]{img/sim_linear_simulink_temp_leg.png}
-            \caption{Simulação da resposta temporal em malha fechada com o controlador projetado na subseção \ref{sc:projeto_controlador_full} para o sistema linearizado.Estados $x_c$ e $x_w$ }
-            \label{fig:simulaca_temporal_linear_realimentacao}
-        \end{centering}
-    \end{figure}
-    \FloatBarrier
+
 	
 	\FloatBarrier
     \begin{figure}[htbp]
@@ -452,83 +421,19 @@ Uma comparação entre os autovalores de malha aberta e malha fechada é exibida
         \subsection{Simulação da resposta temporal do sistema em malha fechada considerando o sistema não linear original utilizando o controlador projetado para o sistema linear}
     
     Abaixo seguem gráficos que ilustram a simulação temporal da resposta do sistema não linear comparada com a resposta do sistema linearizado para excitação com entrada em "lombada" degrau de 0.1m:
+
     
-    \FloatBarrier
-    \begin{figure}[htbp]
-        \begin{centering}
-            \includegraphics[width=7cm]{img/simulaca_temporal_nao_linear_realimentacao.png}
-            \includegraphics[width=6cm]{img/sim_nao_linear_simulink_temp_leg.png}
-            \caption{Simulação da resposta temporal em malha fechada com o controlador projetado na subseção \ref{sc:projeto_controlador_full} para o sistema linearizado e não linearizado.Estados $x_c$ e $x_w$ }
-            \label{fig:simulaca_temporal_nao_linear_realimentacao}
-        \end{centering}
-    \end{figure}
-    \FloatBarrier
-	
-	\FloatBarrier
-    \begin{figure}[htbp]
-        \begin{centering}
-            \includegraphics[width=8cm]{img/simulaca_temporal_nao_linear_realimentacao_V.png}
-            \includegraphics[width=7cm]{img/sim_nao_linear_simulink_temp_leg.png}
-            \caption{Simulação da resposta temporal em malha fechada com o controlador projetado na subseção \ref{sc:projeto_controlador_full} para o sistema linearizado e não linearizado.Estados $V_c = \dot{x}_c$ e $V_w = \dot{x}_w$ }
-            \label{fig:simulaca_temporal_nao_linear_realimentacao_V}
-        \end{centering}
-    \end{figure}
-    \FloatBarrier
-    
-    A observação dos gráficos da resposta temporal exibida nas figuras \ref{fig:simulaca_temporal_nao_linear_realimentacao} e \ref{fig:simulaca_temporal_nao_linear_realimentacao_V} traz a conclusão que, para este caso específico, a resposta temporal do sistema não linear em malha fechada com o controlador projetado para o sistema linearizado se mostrou muito semelhante a resposta temporal do sistema linear. Neste caso, contribuíram para isto a excitação com "lombada" em degrau pequena afastou pouco o sistema do ponto de equilíbrio, ao mesmo tempo que um controlador com um amortecimento relativamente alto, $\xi \simeq 0.6$, contribuiu para que a resposta transitória rica em frequências fosse rapidamente cancelada e apenas o comportamento em regime fosse exibido a maior parte do tempo.
+    A observação dos gráficos da resposta temporal exibida nas figuras  traz a conclusão que, para este caso específico, a resposta temporal do sistema não linear em malha fechada com o controlador projetado para o sistema linearizado se mostrou muito semelhante a resposta temporal do sistema linear. Neste caso, contribuíram para isto a excitação com "lombada" em degrau pequena afastou pouco o sistema do ponto de equilíbrio, ao mesmo tempo que um controlador com um amortecimento relativamente alto, $\xi \simeq 0.6$, contribuiu para que a resposta transitória rica em frequências fosse rapidamente cancelada e apenas o comportamento em regime fosse exibido a maior parte do tempo.
     
     Para comparação, é exibido a seguir a mesma simulação temporal para uma entrada com "lombada" em degrau unitário. Esta entrada excita mais frequências de ambos os sistema e podem revelar mais informações sobre as diferenças entre ambos os sistemas pois leva o sistema linearizado para uma condição de operação mais afastada do ponto de equilíbrio: 
     
-    \FloatBarrier
-    \begin{figure}[htbp]
-        \begin{centering}
-            \includegraphics[width=7cm]{img/simulaca_temporal_nao_linear_realimentacao_unit.png}
-            \includegraphics[width=6cm]{img/sim_nao_linear_simulink_temp_leg.png}
-            \caption{Simulação da resposta temporal em malha fechada com o controlador projetado na subseção \ref{sc:projeto_controlador_full} para o sistema linearizado e não linearizado.Estados $x_c$ e $x_w$ }
-            \label{fig:simulaca_temporal_nao_linear_realimentacao_unit}
-        \end{centering}
-    \end{figure}
-    \FloatBarrier
-	
-	\FloatBarrier
-    \begin{figure}[htbp]
-        \begin{centering}
-            \includegraphics[width=7cm]{img/simulaca_temporal_nao_linear_realimentacao_unit_V.png}
-            \includegraphics[width=6cm]{img/sim_nao_linear_simulink_temp_leg.png}
-            \caption{Simulação da resposta temporal em malha fechada com o controlador projetado na subseção \ref{sc:projeto_controlador_full} para o sistema linearizado e não linearizado.Estados $V_c = \dot{x}_c$ e $V_w = \dot{x}_w$ }
-            \label{fig:simulaca_temporal_nao_linear_realimentacao_unit_V}
-        \end{centering}
-    \end{figure}
-    \FloatBarrier
-    
-    A observação dos gráficos da resposta temporal exibida nas figuras \ref{fig:simulaca_temporal_nao_linear_realimentacao_unit} e \ref{fig:simulaca_temporal_nao_linear_realimentacao_unit_V} demonstra que para uma entrada que desloque o sistema para uma região muito distante do ponto de equilíbrio utilizado para linearização pode causar uma grande diferença na resposta temporal do controle em malha fechada, inclusive podendo degradar significativamente o desempenho do controlador por realimentação de estados.  
+    A observação dos gráficos da resposta temporal exibida nas figuras demonstra que para uma entrada que desloque o sistema para uma região muito distante do ponto de equilíbrio utilizado para linearização pode causar uma grande diferença na resposta temporal do controle em malha fechada, inclusive podendo degradar significativamente o desempenho do controlador por realimentação de estados.  
         \subsection{Simulação da resposta temporal em malha fechada com o controlador projetado para o sistema linearizado e considerando perturbação}
  
     Abaixo seguem gráficos que ilustram a simulação temporal da resposta do sistema linearizado para excitação com perturbações em degraus aleatórios entre $\pm$ 5cm.
 
-    \FloatBarrier
-    \begin{figure}[htbp]
-        \begin{centering}
-            \includegraphics[width=7cm]{img/simulaca_temporal_linear_perturbacao.png}
-            \includegraphics[width=6cm]{img/sim_linear_simulink_temp_leg.png}
-            \caption{Simulação da resposta temporal com o controlador projetado na subseção \ref{sc:projeto_controlador_full} para o sistema linearizado em malha aberta e malha fechada.Estados $X_c = \dot{x}_c$ e $X_w = \dot{x}_w$ }
-            \label{fig:simulaca_temporal_linear_perturbacao}
-        \end{centering}
-    \end{figure}
-    \FloatBarrier
-    \FloatBarrier
-    \begin{figure}[htbp]
-        \begin{centering}
-            \includegraphics[width=7cm]{img/simulaca_temporal_linear_perturbacao_V.png}
-            \includegraphics[width=6cm]{img/sim_linear_simulink_temp_leg.png}
-            \caption{Simulação da resposta temporal com o controlador projetado na subseção \ref{sc:projeto_controlador_full} para o sistema linearizado em malha aberta e malha fechada.Estados $V_c = \ddot{x}_c$ e $V_w = \ddot{x}_w$ }
-            \label{fig:simulaca_temporal_linear_perturbacao_V}
-        \end{centering}
-    \end{figure}
-    \FloatBarrier
     Para a análise da resposta dinâmica do sistema controlado permanecem válidas as mesmas considerações apresentadas na seção \ref{sc:analise_resposta}
 
-    
         \subsection{Projeto de um controlador baseado no observador para o sistema linearizado considerando
         que apenas algumas variáveis de estado não são mensuráveis}
 
@@ -547,17 +452,7 @@ Uma comparação entre os autovalores de malha aberta e malha fechada é exibida
              -27.9577& -8.4588i&\\
         \end{bmatrix}
     \end{equation}
-    Na figura \ref{fig:autovalores_projeto} é demonstrado como ficou o design de todos os autovalores do projeto.
-    \FloatBarrier
-    \begin{figure}[htbp]
-        \begin{centering}
-            \includegraphics[width=7cm]{img/autovalores_projeto.png}
-            \includegraphics[width=7cm]{img/autovalores_projeto_leg.png}
-            \caption{Design dos autovalores do projeto}
-            \label{fig:autovalores_projeto}
-        \end{centering}
-    \end{figure}
-    \FloatBarrier
+    Na figura  é demonstrado como ficou o design de todos os autovalores do projeto.
 
     Os autovalores foram utilizados para definir o conjunto de ganhos $L$ do observador de estados através da fórmula de Lyapunov definida em \ref{eq:lyapunov}. No entanto empregou-se a seguinte substituição de variáveis:
     \begin{equation} \label{eq:var_pred}
@@ -582,28 +477,6 @@ Uma comparação entre os autovalores de malha aberta e malha fechada é exibida
     \end{equation}
 
     Uma simulação temporal do sistema não linear controlado pelo ganho de realimentação de estados, obtido através do preditor desenvolvido nesta seção é exibido nas figuras abaixo:
-
-    \FloatBarrier
-    \begin{figure}[htbp]
-        \begin{centering}
-            \includegraphics[width=7cm]{img/simulaca_temporal_preditor_linear.png}
-            \includegraphics[width=7cm]{img/simulaca_temporal_preditor_linear_erro_leg.png}
-            \caption{Simulação da resposta temporal do sistema original com o controlador e o preditor lineares em malha fechada.}
-            \label{fig:simulaca_temporal_preditor_linear}
-        \end{centering}
-    \end{figure}
-    \FloatBarrier
-
-    \FloatBarrier
-    \begin{figure}[htbp]
-        \begin{centering}
-            \includegraphics[width=7cm]{img/simulaca_temporal_preditor_linear_erro.png}
-            \includegraphics[width=7cm]{img/simulaca_temporal_preditor_linear_erro_leg.png}
-            \caption{Simulação do erro dos estados entre o sistema original e o preditor lineares em malha fechada.}
-            \label{fig:simulaca_temporal_preditor_linear_erro}
-        \end{centering}
-    \end{figure}
-    \FloatBarrier
 
     Houve uma piora no desempenho do do sistema real controlado em malha fechada quando se aplicou a restrição dos estados observáveis, quando comparado com a situação onde todos os estados são observáveis. Especialmente durante os transitórios da perturbação. No entanto, para pequenas variações, o controle baseado em realimentação de estados de um observador linear se mostrou satisfatório.
     

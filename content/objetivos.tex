@@ -1,10 +1,11 @@
-    Comparar o desempenho entre dois sistemas de controle empregando dois tipos diferentes de observador de estados. Em ambos os sistemas de controle será empregado o mesmo controlador de realimentação de estados, que será sintetizado por meio da técnica de \( \mathcal{D}\)-alocação de polos via desigualdades matriciais lineares (LMIs). 
-    Para alcançar o objetivo principal, os seguintes objetivos específicos foram propostos:
-    \begin{itemize}
-        \item Realizar a modelagem matemática de um sistema de suspensão não linear de um quarto de veículo com dois graus de liberdade.
-        \item Realizar a linearização do modelo completo proposto.
-        \item Projetar um observador de Luemberger para a estimação das variáveis de estados necessárias para o funcionamento da estratégia de controle.
-        \item Projetar um controlador linear por realimentação de estados com ganho constante por meio da aplicação da técnica de \( \mathcal{D}\)-alocação de polos via desigualdades matriciais lineares (LMIs). Uma \( \mathcal{D}\)-Região é proposta para garantir a estabilidade e os requisitos de desempenho de tempo de acomodação e máxima sobrelevação percentual mesmo sob condições de incerteza dos parâmetros do sistema.
-        \item Projetar um observador de entradas desconhecidas, pelo método das desigualdades matriciais lineares (LMIs), para a estimação das variáveis de estados necessárias para o funcionamento da estratégia de controle.
-        \item Realizar simulações temporais com o controlador proposto para o sistema linearizado empregando as diferentes metodologias de observadores e comparar os resultados.
-    \end{itemize}
+Tendo em vista o problema de projetar controladores para sistemas de suspensão veicular ativa com o objetivo de melhorar o conforto e a segurança na condução do veiculo. Este trabalho tem como objetivo principal analisar o efeito do uso de observadores de entradas desconhecidas robustos na síntese de um sistema de controle por realimentação de estados baseado em observador. Neste trabalho, o sistema de suspensão veicular é considerado como um sistema linear invariante no tempo com matrizes constantes com dependência paramétrica e incertezas politópicas. 
+A principal motivação deste trabalho é projetar observadores e controladores com estruturas simples, capazes de atenderem aos requisitos de projeto e que não necessitem mensurar ou estimar os parâmetros do sistema. Comparar o desempenho entre dois sistemas de controle empregando dois tipos diferentes de observador de estados. Em ambos os sistemas de controle será empregado o mesmo controlador de realimentação de estados, que será sintetizado por meio da técnica de \( \mathcal{D}\)-alocação de polos via LMIs, garantindo assim estabilidade assintótica para os sistemas projetados.
+Para alcançar o objetivo principal, os seguintes objetivos específicos foram propostos:
+\begin{itemize}
+    \item Realizar a modelagem matemática de um sistema de suspensão não linear de um quarto de veículo com dois graus de liberdade.
+    \item Realizar a linearização do modelo completo proposto.
+    \item Projetar um observador de Luenberger para a estimação das variáveis de estados necessárias para o funcionamento da estratégia de controle.
+    \item Projetar um controlador linear por realimentação de estados com ganho constante por meio da aplicação da técnica de \( \mathcal{D}\)-alocação de polos via desigualdades matriciais lineares (LMIs). Uma \( \mathcal{D}\)-Região é proposta para garantir a estabilidade e os requisitos de desempenho de tempo de acomodação e máxima sobrelevação percentual mesmo sob condições de incerteza dos parâmetros do sistema.
+    \item Projetar um observador de entradas desconhecidas, pelo método das desigualdades matriciais lineares (LMIs), para a estimação das variáveis de estados necessárias para o funcionamento da estratégia de controle.
+    \item Realizar simulações temporais com o controlador proposto para o sistema linearizado empregando as diferentes metodologias de observadores e comparar os resultados.
+\end{itemize}
