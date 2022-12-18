@@ -3,7 +3,7 @@ O modelo de um quarto de carro consiste em isolar uma quarta parte do veículo e
 \FloatBarrier
 \begin{figure}[htbp]
     \begin{centering}
-        \includegraphics[width=8cm,height=6cm]{img/massa_mola_nao_linear_controlavel.png}
+        \includegraphics[width=7cm,height=5.25cm]{img/massa_mola_nao_linear_controlavel.png}
         \caption{Modelo de suspensão para um quarto de carro.} 
         \label{fig:massa_mola_nao_linear_controlavel}
     \end{centering}
@@ -15,7 +15,7 @@ O diagrama de corpo livre do sistema pode ser construído tomando-se como refere
 \FloatBarrier
 \begin{figure}[htbp]
         \begin{centering}
-            \includegraphics[width=8cm,height=6cm]{img/corpo_livre_ms.png}
+            \includegraphics[width=7cm,height=5.25cm]{img/corpo_livre_ms.png}
             \caption{Diagrama de corpo livre para a massa $m_s$.} 
             \label{fig:corpo_livre_ms}
         \end{centering}
@@ -23,7 +23,7 @@ O diagrama de corpo livre do sistema pode ser construído tomando-se como refere
 \FloatBarrier
 \begin{figure}[htbp]
     \begin{centering}
-        \includegraphics[width=8cm,height=6cm]{img/corpo_livre_mu.png}
+        \includegraphics[width=7cm,height=5.25cm]{img/corpo_livre_mu.png}
         \caption{Diagrama de corpo livre para a massa $m_u$.} 
         \label{fig:corpo_livre_mu}
     \end{centering}
@@ -72,7 +72,7 @@ Substituindo as equações \ref{eq:mola_nao_linear} e \ref{eq:amortecedor_nao_li
     \end{aligned}
 \end{equation}
         
-\subsection{Modelo Linearizado de um sistema de suspensão semi-ativa, não linear, de um quarto de veículo, com dois graus de liberdade }
+\subsection{Modelo Não Linear de um sistema de suspensão semi-ativa, não linear, de um quarto de veículo, com dois graus de liberdade }
 Realizando a distributiva no sistema descrito em \ref{eq:massa_mola_nao_linear} e propondo as seguintes substituições para as variáveis de estado das equações e reorganizando os termos, obtemos: 
 \begin{equation*}
     \begin{split}
@@ -137,93 +137,76 @@ Para um sistema com múltiplas variáveis de estado, calcula-se a Jacobiana do s
     \end{bmatrix}
 \end{equation}
     
-    \begin{equation} \label{eq:eval_A}
-        \mathbf{A=J_A} \Bigr\rvert_{(x_1=\alpha_1;x_2=\alpha_2;\dots;x_n=\alpha_n)} \\
-    \end{equation}
+\begin{equation} \label{eq:eval_A}
+    \mathbf{A=J_A} \Bigr\rvert_{(x_1=\alpha_1;x_2=\alpha_2;\dots;x_n=\alpha_n)} \\
+\end{equation}
     
-    \begin{equation} \label{eq:Jacobian_B}
+\begin{equation} \label{eq:Jacobian_B}
     \mathbf{J_B}(u_1,u_2,\dots,u_m) =
-        \begin{bmatrix}
-            \frac{\partial u_1}{\partial u_1} & 
-            \frac{\partial u_1}{\partial u_2} & 
-            \dots &
-            \frac{\partial u_1}{\partial u_m} &\\[1ex]
-            \frac{\partial u_2}{\partial u_1} & 
-            \frac{\partial u_2}{\partial u_2} & 
-            \dots &
-            \frac{\partial u_2}{\partial u_m} &\\[1ex]
-            \vdots & 
-            \vdots & 
-            \ddots &
-            \vdots &\\[1ex]
-            \frac{\partial u_n}{\partial u_1} & 
-            \frac{\partial u_n}{\partial u_2} & 
-            \dots &
-            \frac{\partial u_m}{\partial u_m} &\\[1ex]
+    \begin{bmatrix}
+        \frac{\partial u_1}{\partial u_1} & 
+        \frac{\partial u_1}{\partial u_2} & 
+        \dots &
+        \frac{\partial u_1}{\partial u_m} &\\[1ex]
+        \frac{\partial u_2}{\partial u_1} & 
+        \frac{\partial u_2}{\partial u_2} & 
+        \dots &
+        \frac{\partial u_2}{\partial u_m} &\\[1ex]
+        \vdots & 
+        \vdots & 
+        \ddots &
+        \vdots &\\[1ex]
+        \frac{\partial u_n}{\partial u_1} & 
+        \frac{\partial u_n}{\partial u_2} & 
+        \dots &
+        \frac{\partial u_m}{\partial u_m} &\\[1ex]
     \end{bmatrix}
-    \end{equation}
+\end{equation}
     
-    \begin{equation} \label{eq:eval_B}
-        \mathbf{B=J_B} \Bigr\rvert_{(u_1=\beta_1;u_2=\beta_2;\dots;u_m=\beta_m)} \\
-    \end{equation}
+\begin{equation} \label{eq:eval_B}
+    \mathbf{B=J_B} \Bigr\rvert_{(u_1=\beta_1;u_2=\beta_2;\dots;u_m=\beta_m)} \\
+\end{equation}
     
-    \begin{equation} \label{eq:sis_lenearizado}
-        Y(x,u) = A*x + B*u
-    \end{equation}
+\begin{equation} \label{eq:sis_lenearizado}
+    Y(x,u) = A*x + B*u
+\end{equation}
     
-     Onde:
-     \begin{itemize}
-        \item $x=[x_1,x_2,\dots,x_n]$ o vetor de estados do sistema
-        \item $u=[u_1,u_2,\dots,u_m]$ o vetor das entradas do sistema
-        \item $\alpha=[\alpha_1,\alpha_2,\dots,\alpha_n]$ um vetor solução para os pontos de equilíbrio dos estados do sistema.
-        \item $\beta=[\beta_1,\beta_2,\dots,\beta_m]$ um vetor solução para os pontos de equilíbrio das entradas do sistema.
-        \item $Y(x,u)$ equação do sistema linearizado ao redor do ponto de equilíbrio $\alpha$.
-     \end{itemize}
-
-\subsection{Especificações da Resposta Transitória para Sistemas Subamortecidos}
-As características de um sistema de controle são geralmente especificadas em termos da resposta transitória para uma entrada em degrau. Para sistemas LIT, quando a resposta ao degrau é conhecida, pode-se calcular a resposta a qualquer tipo de entrada e costuma-se utilizar condição inicial de sistema em repouso. As seguintes especificações são as mais utilizadas:
+Onde:
 \begin{itemize}
-    \item  Tempo de atraso - $t_d$: tempo necessário para que a resposta alcance metade do seu valor final pela primeira vez.
-    \item  Tempo de subida - $t_r$: tempo requerido para que a resposta passe de 10\% a 90\%, ou de 5\% a 95\%, ou de 0\% a 100\% do valor final. Para sistemas de 2ª ordem subamortecido, utiliza-se 0\% a 100\% do valor final. Para sistemas superamortecidos, geralmente considera-se de 10\% a 90\%.
-    \begin{equation} \label{eq:tr}
-        t_r = \frac{\pi-\theta}{\omega_d}
-    \end{equation} 
-    \item Tempo de pico - $t_p$: tempo para que a resposta atinja o primeiro pico de sobressinal.
-    \begin{equation} \label{eq:tp}
-        t_p = \frac{\pi}{\omega_d}
-    \end{equation}
-    \item Máximo overshoot $MO$: valor máximo de pico da curva de resposta, medido a partir da unidade. Se o valor da resposta em regime diferir da unidade, utiliza-se a porcentagem máxima de sobressinal (ou ultrapassagem percentual, U.P.):
-    \begin{equation} \label{eq:MaxOv}
-        \begin{split}
-            M_O=\exp{(\frac{-\xi.\pi}{\sqrt(1-\xi^2)})}\\
-            \xi=-\frac{ln\left( M_O \right)}{\sqrt{\pi^2+ln^2(M_O)}}
-        \end{split}
-    \end{equation}
-    \item Tempo de acomodação ou assentamento - $t_s$: tempo necessário para que a resposta permaneça com valores no interior de uma certa faixa (usualmente $\pm2\%$ ou $\pm5\%$) em torno do valor final.
-    \begin{equation} \label{eq:Ts2}
-        \begin{split}
-            T_{S_{2\%}}=-\frac{ln\left( 0.02*\sqrt{1-\xi} \right)}{\omega_n*\xi}\\
-            \omega_n=-\frac{ln\left( 0.02*\sqrt{1-\xi} \right)}{T_{S_{2\%}}*\xi}  
-        \end{split}
-    \end{equation}
+    \item $x=[x_1,x_2,\dots,x_n]$ o vetor de estados do sistema
+    \item $u=[u_1,u_2,\dots,u_m]$ o vetor das entradas do sistema
+    \item $\alpha=[\alpha_1,\alpha_2,\dots,\alpha_n]$ um vetor solução para os pontos de equilíbrio dos estados do sistema.
+    \item $\beta=[\beta_1,\beta_2,\dots,\beta_m]$ um vetor solução para os pontos de equilíbrio das entradas do sistema.
+    \item $Y(x,u)$ equação do sistema linearizado ao redor do ponto de equilíbrio $\alpha$.
 \end{itemize}
+     
+\subsection{Especificações da Resposta Transitória para Sistemas Subamortecidos}
+As características de um sistema de controle são geralmente especificadas em termos da resposta transitória para uma entrada em degrau. Para sistemas LTI, quando a resposta ao degrau é conhecida, pode-se calcular a resposta a qualquer tipo de entrada e costuma-se utilizar condição inicial de sistema em repouso. 
+Considere uma função de transferência de 2\textdegree ordem do tipo:
 
-Dado que:
-\begin{equation} \label{eq:eign}
-        \lambda = \sigma \pm \omega_d.i
+\begin{equation} \label{eq:2ordmdl}
+    G(s) = \frac{\omega^2_n}{s^2+2\xi \omega_ns +\omega^2_n}
 \end{equation}
-\begin{equation} \label{eq:xi}
-    \xi=\frac{\sigma}{|\omega_n|}
-\end{equation}
-\begin{equation} \label{eq:theta}
-        \xi=\cos{(\theta)}
-\end{equation}
-\begin{equation} \label{eq:wd}
-        \omega_d=\omega_n\sqrt{1-\xi^2}
+
+Que é o modelo da função de transferência desejada em malha 
+fechada no modelo SISO. O modelo \ref{eq:2ordmdl} define uma função de transferência estável e desejada, em que $\omega_n$ e a frequência natural e $\xi$ é o coeficiente de amortecimento.
+As seguintes especificações são as mais utilizadas para obtenção de $\omega_n$ e de $\xi$ :
+
+\begin{equation} \label{eq:wnxi}
+    \begin{split} 
+        \xi=-\frac{ln\left( M_O \right)}{\sqrt{\pi^2+ln^2(M_O)}}\\
+        \omega_n=-\frac{ln\left( 0.02*\sqrt{1-\xi} \right)}{T_{S_{2\%}}*\xi} 
+    \end{split}
 \end{equation}
     
-\subsection{Observador de Luenberger}\label{sc:luemberger}
+Onde $MO$ é o máximo overshoot, valor máximo de pico da curva de resposta, medido a partir da unidade. Se o valor da resposta em regime diferir da unidade, utiliza-se a porcentagem máxima de sobressinal (ou ultrapassagem percentual, U.P.) e $t_s$ é o Tempo de acomodação ou assentamento, tempo necessário para que a resposta permaneça com valores no interior de uma certa faixa (usualmente $\pm2\%$ ou $\pm5\%$) em torno do valor final.
 
+A equação \ref{eq:wnxi} define as raízes do modelo desejado em \ref{eq:2ordmdl}, tal que $s_{1,2}=-\sigma_p ±j\omega_d$, sendo que $\sigma_p = \wi\omega_n$ e $\omega_{d}=\omega_{n} \sqrt{1-\xi}$  
+ 
+\subsection{Observador de Luenberger}\label{sc:luemberger}
+Segundo a definição de \cite{EllisObserver}, um observador é uma estrutura matemática que, a cada instante de tempo t, constrói uma estimativa $\hat{x}(t)$ do estado $x(t)$ através da combinação das medidas das entradas $u(t)$ e saídas $y(t)$, provenientes de sensores. Em aplicações de controle de sistemas, mais especificamente no controle por realimentação de estados, a realimentação envolve a medição de todo o vetor de estado, o que nem sempre é possível ou viável economicamente. A solução neste caso é estimar os estados faltantes a partir das saídas que são possíveis de ser medidas. Desta forma, utiliza-se o vetor de ganhos calculado como se o estado fosse, de fato, medido. Assim, substitui-se o estado pelo estado estimado, multiplicado pelo vetor de ganhos do controlador, para fechar a malha de controle.
+O estimador de estados foi chamado de observador por Luenberger em \cite{Luenberger1971AnObservers} e \cite{Luenberger}, o primeiro a apresentar o conceito e por este motivo é chamado de observador de Luenberger. Sua principal característica que o diferencia dos demais é que observador de Luenberger corrige a equação de estimação do estado com uma realimentação do erro de estimação $y(k)-\hat{y}(k)$.
+De maneira geral, um problema dos observadores é o fato que perturbações externas corrompem o sinal do estado estimado, pois estas afetam a variável de estado real na planta controlada mas não são incluídas no calculo do preditor. De fato, perturbações não podem ser incluídas no cálculo da predição por que estas são desconhecidas na maioria das vezes. Com poucas excessões, perturbações não são medidas diretamente.
 Considere o sistema linear e invariante no tempo representado a seguir pela equação \ref{eq:linsys}:
 
 \begin{equation}\label{eq:linsys}
@@ -241,7 +224,7 @@ Considere também o observador de estados linear de Luenberger representado a se
     \end{split}
 \end{equation}
 
-Onde $x \in \Re^{n*1}$ é o vetor de estados do sistema, $u \in \Re^{r*1}$ é o vetor de entrada de controle, $w \in \Re^{p*1}$ é o vetor de entrada de perturbação, $A \in \Re^{n*n}$, $B \in \Re^{n*1}$, $C \in \Re^{m*n}$, $D_u \in \Re^{1*1}$ e $D_w \in \Re^{1*1}$ são as matrizes do sistema, $y \in \Re^{m*1}$ é o vetor de saídas, $z \in \Re^{n*1}$ é o vetor de estados preditos, e $L\in \Re^{n*1}$ é o vetor de ganhos do observador.
+Onde $x \in \Re^{n_{x} \times 1}$ é o vetor de estados do sistema, $u \in \Re^{n_{u} \times 1}$ é o vetor de entrada de controle, $w \in \Re^{n_{w} \times 1}$ é o vetor de entrada de perturbação, $A \in \Re^{n_{x} \times n_{x}}$, $B \in \Re^{n_{x} \times 1}$, $C \in \Re^{n_{y} \times n_{x}}$, $D_u \in \Re^{1 \times 1}$ e $D_w \in \Re^{1 \times 1}$ são as matrizes do sistema, $y \in \Re^{{n_{y} \times 1}}$ é o vetor de saídas, $z \in \Re^{n_{x} \times 1}$ é o vetor de estados preditos, e $L\in \Re^{n_{x} \times 1}$ é o vetor de ganhos do observador.
 
 Considere o par $(A,C)$ completamente observável. O que implica que a matriz de observabilidade:
 
@@ -254,14 +237,14 @@ Considere o par $(A,C)$ completamente observável. O que implica que a matriz de
 
 Possui $rank(\mathbb{M_O}) = n$
  
-Se o par $(A,C)$ for completamente observável é possível encontrar um vetor de ganhos $L\in \Re^{n*1}$ que faça com que o conjunto de autovalores de $A-L*C$ corresponda ao conjunto de autovalores de qualquer matriz $F \in \Re^{n*n}$ arbitrariamente escolhida. 
+Se o par $(A,C)$ for completamente observável é possível encontrar um vetor de ganhos $L\in \Re^{n_{x} \times 1}$ que faça com que o conjunto de autovalores de $A-L*C$ corresponda ao conjunto de autovalores de qualquer matriz $F \in \Re^{n_{x} \times n_{x}}$ arbitrariamente escolhida. 
 Definindo-se o erro de estimação de estado como $e=x-\hat(x)$, $L$ deve ser escolhido de maneira que leve $(A-LC)$ à estabilidade rapidamente e sem grandes oscilações), ou seja, L deve fazer com que o erro de observação e,
 qualquer que seja o erro inicial, convirja para zero o mais rapidamente possível. Para isso, é muito importante que o observador seja mais rápido 
 que o sistema que ele observa, assim ele não introduz erros significativos na dinâmica do sistema controlado. A escolha conveniente dos autovalores de $(A-LC)$ faz com que o erro $e\rightarrow0$ assintoticamente. 
 O conjunto de autovalores de $(A-LC)$ pode ser escolhida pela resolução da equação de Lyapunov.
     
 \begin{enumerate}
-    \item Define-se uma matriz $F \in \Re^{n*n}$ com os autovalores desejados, pelo menos 3 vezes mais rápidos do que o autovalor mais rápido do sistema.
+    \item Define-se uma matriz $F \in \Re^{n_{x} \times n_{x}}$ com os autovalores desejados, pelo menos 3 vezes mais rápidos do que o autovalor mais rápido do sistema.
     \item Escolhe-se uma matriz $\bar{k}$ arbitrário tal que $(F,\bar{k})$ seja observável.
     \item {Obtém-se a solução única $T$ da equação de Lyapunov
     \begin{equation} \label{eq:lyapunov}
@@ -285,7 +268,33 @@ A implementação do observador de Luenberger em ambiente Simulink é exibida na
 \end{figure}
 \FloatBarrier
 
+\subsection{Métodos de Lyapunov}
+A bibliografia de engenharia de controle mostra o uso dos métodos de Lyapunov para a análise e síntese de controladores para sistemas lineares, como pode ser encontrado em \cite{ChenLSTI}. De uma forma geral, utiliza-se controladores lineares baseados nas funções de Lyapunov de forma quadrática. O controlador linear é baseado em modelos linearizados do sistema na proximidade de um ponto de equilíbrio, garantindo a estabilidade local do sistema controlado. Além disso, utilizando controladores é possível garantir a estabilidade do sistema em malha fechada, podendo se associar a qualquer controlador critérios de desempenho, como tempo de acomodação e máximo sobressinal (\cite{Hang1987RefinementsOT}; \cite{601347}; \cite{1049598}), normas $\Hdois$ (\cite{4789992}) e $\Hinfty$ (\cite{Petersen}; \cite{Wang1992RobustCO}), taxa de convergência (\cite{Elia2001StabilizationInformation}; \cite{LORIA200213}), dentre outros.
+
+\subsection{Desigualdades Matriciais Lineares aplicadas na teoria de controle}
+A História do uso de desigualdades matriciais lineares (LMIs) na análise de sistemas dinâmicos tem início nos primeiros anos do século XX, segundo \cite{Boyd1994LinearTheory}, quando \cite{Lyapunov1992TheMotion} publicou seu trabalho sobre o problema geral da estabilidade do movimento. Lyapunov demonstrou que a equação diferencial:
+\begin{equation} \label{eq:lyapunovdif}
+    \frac{\partial x(t)}{\partial t} = Ax(t), 
+\end{equation}
+é estável se e somente se existir uma matriz P, definida positiva, tal que:
+\begin{equation} \label{eq:lyapunovlmi}
+    A^{T}P + PA < 0,
+\end{equation}
+        
+O requisito $P>0, A^{T} P + PA < 0$ é o que chamamos de desigualdade de Lyapunov em P, que é uma LMI. \cite{Lyapunov1992TheMotion} demonstrou que esta LMI pode ser resolvida analiticamente através de um sistema de equações lineares.
+        
+A teoria de \cite{Lyapunov1992TheMotion} tornou-se conhecida da comunidade de engenharia de controle por volta da década de 1960, com o desenvolvimento do conceito de controle moderno. Porém, segundo \cite{Rodrigues2018ParameterizedSystems}, foi o surgimento dos métodos dos pontos interiores para solução de problemas de programação linear e convexa na década de 1980 que tornou possível que uma enorme variedade de problemas na teoria de controle e sistemas pudessem ser resolvidos de maneira eficiente por meio de métodos numéricos empregando os métodos de Lyapunov.
+
+Segundo \cite{Boyd1994LinearTheory} Uma LMI é descrita pela seguinte expressão:
+
+\begin{equation}\label{eq:defLMI}
+    F(x) = F_0 + \sum^{m}_{k=1}X_iF_i, \geq 0
+\end{equation}
+
+Onde $x \in \Re^{m}$ F(x) e uma função afim, em que $F_i \in \Re^{n \times m}$, $i = 0, \dots, m$ são matrizes simétricas semi-definidas positivas. Umas das suas características e apresentar o formato simétrico em suas matrizes. A restrição em (12) consiste numa restrição convexa, isto é, o conjunto $x/F(x)\geq 0$ e convexo.
+        
 \subsection{Observadores de entradas desconhecidas para sistemas LPV}
+Baseado nos trabalhos de \cite{SilvaSinteseEstados} e \cite{Dias2022ItaloDias}, Observadores de Entradas Desconhecidas (do inglês,Unknown Input Observers, UIOs) são uma classe de observadores que possuem como característica principal a possibilidade de desacoplar as entradas desconhecidas (erros de modelagem,distúrbios, perturbações, dentre outros) do erro de estimação. Um UIO trata o problema da corrupção do estado estimado, podendo ser aplicados para o projeto de controladores baseados em observadores (\cite{Zasadzinski1995LoopTR}), sendo que o UIO sintetizado é empregado para estimar os estados do sistema, os quais são posteriormente utilizados para realizar o controle por realimentação de estados. Outra aplicação para controle existente na literatura surge do uso de UIOs para estimativa de entradas desconhecidas (distúrbios)utilizada em aplicações como Disturbance Accommodation Control(DAC) (\cite{Chen2016Disturbance-Observer-BasedOverview}).
 
 Do trabalho de \cite{Dias2022ItaloDias}, seja um sistema linear com dependência paramétrica no tempo contínuo dado por:
 
@@ -296,7 +305,7 @@ Do trabalho de \cite{Dias2022ItaloDias}, seja um sistema linear com dependência
     \end{split}
 \end{equation}
 
-Onde $x \in \Re^{n*1}$ é o vetor de estados do sistema, $u \in \Re^{r*1}$ é o vetor de entrada de controle, $w \in \Re^{p*1}$ é o vetor de entrada de perturbação no sistema e erros de modelagem.  $y \in \Re^{m*1}$ é o vetor de saídas mensuráveis e  $\alpha \in \Lambda_N$  é o vetor de parâmetros incertos ou variantes no tempo. As matrizes $A$, $B_u$, $B_w$ e $C$ possuem dimensões compatíveis.
+Onde $x \in \Re^{n_{x} \times 1}$ é o vetor de estados do sistema, $u \in \Re^{n_{u} \times 1}$ é o vetor de entrada de controle, $w \in \Re^{n_{w} \times 1}$ é o vetor de entrada de perturbação no sistema e erros de modelagem.  $y \in \Re^{n_{y} \times 1}$ é o vetor de saídas mensuráveis e  $\alpha \in \Lambda_N$  é o vetor de parâmetros incertos ou variantes no tempo. As matrizes $A$, $B_u$, $B_w$ e $C$ possuem dimensões compatíveis.
 O objetivo é projetar um observador de estados na forma:
 
 \begin{equation}\label{eq:UIO}
@@ -327,7 +336,7 @@ Definindo-e a variável de linearização $M=I+EC$, a dinâmica do erro de estim
 \normalsize
 Que produz o seguinte resultado:
 
-\begin{equation} 
+\begin{equation} \footnotesize
     \dot{e}=A_he+(MA(\alpha)-LC-A_hM)x+(MB_u-B_h)u+MB_w(\alpha)w
 \end{equation}
 
@@ -353,4 +362,110 @@ Desde que todas as condições dadas nas equações \ref{eq:cond1UIO}, \ref{eq:c
     \dot{e}=A_he+(MA(\alpha)-LC-A_hM)x
 \end{equation}
 
-Ao analisar a Equação \ref{eq:erroUIO} é possível notar que existe interferência da dinâmica dos estados do sistema \ref{eq:part_linsys} na dinâmica do erro de estimação. Porém, dado que a matriz $A$ depende de parâmetros incertos $\alpha$, não é possível determinar matrizes constantes$A_h$ e $L$ tais que possa-se garantir o desacoplamento exato do sistema da dinâmica do erro. Desta maneira, o projeto do observador é feito de modo a atenuar a interferência dos estados sobre o erro de estimação, esse procedimento é semelhante ao que foi desenvolvido nos trabalhos de(ZEMOUCHE; BOUTAYEB; BARA, 2008), que minimiza o ganho ℒ2sobre o sistema.Portanto, o objetivo do projeto é determinar as matrizes��ℎe��que garantam a mini-mização do erro em estado estacionário e atenuação da influência dos��sobre o erro. Emsistemas precisamente conhecidos, existe um UIO que desacopla a influência dos estados��
+Ao analisar a Equação \ref{eq:erroUIO} é possível notar que existe interferência da dinâmica dos estados do sistema \ref{eq:part_linsys} na dinâmica do erro de estimação. Porém, dado que a matriz $A$ depende de parâmetros incertos $\alpha$, não é possível determinar matrizes constantes$A_h$ e $L$ tais que possa-se garantir o desacoplamento exato do sistema da dinâmica do erro. Desta maneira, o projeto do observador é feito de modo a atenuar a interferência dos estados sobre o erro de estimação, esse procedimento é semelhante ao que foi desenvolvido nos trabalhos de \cite{ZEMOUCHE200818}, que minimiza o ganho $\Ldois$ sobre o sistema. Portanto, o objetivo do projeto é determinar as matrizes $A_h$ e $L$ que garantam a minimização do erro em estado estacionário e atenuação da influência dos vetor de estados $x$ sobre o erro. Em sistemas precisamente conhecidos, existe um UIO que desacopla a influência dos estados $x$ da dinâmica do erro de estimação, em outras palavras, o termo $MA(\alpha)-LClA_hM=0$, sendo a matriz A precisamente conhecida. Assim, de posse de todas as premissas do projeto, é necessário, primeiramente, garantir que o observador seja estável. Propondo um funcional de Lyapunov da forma $V(e)=e^'Pe$, a derivada do funcional é definida na equação \ref{eq:uio:lyaperrfunctstab} abaixo. É necessário garantir que o funcional seja definido positivo e sua derivada definida negativa. Por simplificação da expressão, considere $S(\alpha)=MA(\alpha)-LC-A_hM$.
+
+\begin{equation}\label{eq:uio:lyaperrfunctstab}
+    \begin{split}
+        \dot{V}(e)=&\dot{e}^'Pe+e^'P\dot{e}<0\\
+        \dot{V}(e)=&e^'A^'_hPe+x^'S(\alpha)^'Pe+e^'PA_he+e^'PS(\alpha)x<0
+    \end{split}
+\end{equation}
+
+Com base na condição da norma $\Hinfty$ induzida, o ganho $\Ldois$ pode ser escrito como:
+
+\begin{equation}\label{eq:uio:lyaperrnorm}
+    \begin{split}
+        &\normx{e}_{\Ldois}\leq\gamma\normx{x}_{\Ldois}\\
+        &\int_{-\infty}^{+\infty} e(t)^'e(t)\,dt-\gamma^2\int_{-\infty}^{+\infty} x(t)^'x(t)\,dt \leq 0
+    \end{split}
+\end{equation}
+
+Combinando-se as condições de estabilidade da equação \ref{eq:uio:lyaperrfunctstab} com a condição da norma apresentada na equação \ref{eq:uio:lyaperrnorm}, a expressão para síntese do observador é dada por:
+
+\begin{equation}\label{eq:uio:sint}
+    e^'A^'_hPe+x^'S(\alpha)^'Pe+e^'PA_he+e^'PS(\alpha)x+e^'e-\gamma^2x^'x<0 
+\end{equation}
+
+Definindo o vetor $s^'=[e^',x^']$ e desenvolvendo a equação \ref{eq:uio:sint} em Schur:
+
+\begin{equation}\label{eq:uio:sintschur}
+    s^'
+    \begin{bmatrix}
+        A^'_hP+PA_h+I& PS(\alpha)&\\ 
+        S(\alpha)^'P& -\gamma^2I
+    \end{bmatrix}
+    s<0
+\end{equation}
+
+Expandindo o termo $S$ como $S(\alpha)=MA(\alpha)-LC-A_hM$ e definindo as variáveis de linearização $Z=PL$ e $Q=PA_h$, a condição para síntese do observador de entradas desconhecidas em tempo contínuo é:
+
+\begin{equation}\label{eq:uio:sintfinal}    
+    \begin{bmatrix}
+        Q^'+Q+I& PMA(\alpha)-ZC-QM&\\ 
+        A(\alpha)^'M^'P-C^'Z^'-M^'Q^'& -\gamma^2I
+    \end{bmatrix} <0
+\end{equation}
+
+do qual obteremos as matrizes $A_h$ e $L$ do observador UIO, para a escolha da matriz $E$ precisamos do seguinte desenvolvimento. Utilizando a definição de $M=I+EC$ e aplicando na condição necessária da equação \ref{eq:cond2UIO}, obtemos a seguinte equação para escolha de $E$:
+
+\begin{equation}
+    \begin{split}
+        MB_w=0\\
+        (I+EC)B_w=0\\
+        E=-B_w(CB_w)^{\dagger}
+    \end{split}
+\end{equation}
+
+Baseado neste desenvolvimento, a síntese do observador de entrada desconhecida se encontra exposto no Teorema \ref{theo:UIO}.
+\break
+\begin{teorema}[Síntese do UIO] \label{theo:UIO}
+ Dada uma matriz $M$ que satisfaça a condição expressa em \ref{eq:cond2UIO}, caso existam matrizes $P \in \Re^{n_{x} \times n_{x}}$,$P=P^'>0$, $Z \in \Re^{n_{x} \times n_{y}}$ e $Q \in \Re{n_{x} \times n_{x}}$ não nulas e um escalar $\gamma\geq0$ soluções do problema de otimização:
+ \begin{equation*}
+         min \ \ \gamma^2 
+ \end{equation*}
+  \begin{equation}
+         \begin{bmatrix}
+            Q^'+Q+I& PMA(\alpha)-ZC-QM&\\ 
+            A(\alpha)^'M^'P-C^'Z^'-M^'Q^'& -\gamma^2I
+    \end{bmatrix} <0
+ \end{equation}
+\end{teorema}
+
+para todo $i=1,\dots,N$, então, existe um observador de entradas desconhecidas da forma \ref{eq:UIO} com matrizes $A_h=P^{-1}Q$, $L=P^{-1}Z$, $E=-B_w(CB_w)^{\dagger}$ e $B_h=MB_u$
+\subsection{Conceito de \( \mathcal{D}\)-estabilidade}
+
+Do trabalho de \cite{Chiali1996HApprocah}, considere o sistema no espaço de estados do tipo:
+
+\begin{equation} \label{eq:dsta:linsys}
+    \begin{split}
+    \dot{x}=&Ax+Bu\\
+          y=&Cx    
+    \end{split}
+\end{equation}
+
+Onde as matrizes A, B, C são as matrizes do sistema LTI com as dimensões apropriadas, considere também que o controlador por realimentação de estados é dada por:
+
+\begin{equation}
+    u=-Kx  
+\end{equation}
+
+Considere os parâmetros escalares $\sigma$, $\beta$ e $\theta$ sejam fixos. Se existe solução para as LMIs descritas em \ref{eq:dsta:lmis} e \ref{eq:dsta:lmisaux}, então pode-se obter o controlador $K=YP^{-1}$ que estabiliza o sistema \ref{eq:dsta:linsys} com alocação de polos na região mostrada pela figura \ref{}.
+
+\begin{equation}\label{eq:dsta:lmis}
+    \begin{split}
+        P>&0\\
+         2\sigma_pP+(AP-BY)+(AP-BY)^'<&0\\
+        -2\beta_pP-((AP-BY)+(AP-BY)^')<&0\\
+        \begin{bmatrix}
+            \sin{\theta}(T_1)&\cos{\theta}(T_2)&\\
+            \cos{\theta}(T^'_2)&sin{\theta}(T_1)&\\
+        \end{bmatrix}<&0
+    \end{split}    
+\end{equation}
+Sendo:
+\begin{equation}\label{eq:dsta:lmisaux}
+    \begin{split}
+        T_1=&(AP-BY)+(AP-BY)^'\\
+        T_2=&(AP-BY)-(AP-BY)^'\\
+    \end{split} 
+\end{equation}
