@@ -179,8 +179,7 @@ Para um sistema com múltiplas variáveis de estado, calcula-se a Jacobiana do s
         \item $\beta=[\beta_1,\beta_2,\dots,\beta_m]$ um vetor solução para os pontos de equilíbrio das entradas do sistema.
         \item $Y(x,u)$ equação do sistema linearizado ao redor do ponto de equilíbrio $\alpha$.
      \end{itemize}
-     
-    
+
 \subsection{Especificações da Resposta Transitória para Sistemas Subamortecidos}
 As características de um sistema de controle são geralmente especificadas em termos da resposta transitória para uma entrada em degrau. Para sistemas LIT, quando a resposta ao degrau é conhecida, pode-se calcular a resposta a qualquer tipo de entrada e costuma-se utilizar condição inicial de sistema em repouso. As seguintes especificações são as mais utilizadas:
 \begin{itemize}
@@ -285,3 +284,73 @@ A implementação do observador de Luenberger em ambiente Simulink é exibida na
     \end{centering}
 \end{figure}
 \FloatBarrier
+
+\subsection{Observadores de entradas desconhecidas para sistemas LPV}
+
+Do trabalho de \cite{Dias2022ItaloDias}, seja um sistema linear com dependência paramétrica no tempo contínuo dado por:
+
+\begin{equation}\label{eq:part_linsys}
+    \begin{split}
+        \dot{x}(t)=&A(\alpha)x+B_uu+B_w(\alpha)w\\
+              y(t)=&Cx
+    \end{split}
+\end{equation}
+
+Onde $x \in \Re^{n*1}$ é o vetor de estados do sistema, $u \in \Re^{r*1}$ é o vetor de entrada de controle, $w \in \Re^{p*1}$ é o vetor de entrada de perturbação no sistema e erros de modelagem.  $y \in \Re^{m*1}$ é o vetor de saídas mensuráveis e  $\alpha \in \Lambda_N$  é o vetor de parâmetros incertos ou variantes no tempo. As matrizes $A$, $B_u$, $B_w$ e $C$ possuem dimensões compatíveis.
+O objetivo é projetar um observador de estados na forma:
+
+\begin{equation}\label{eq:UIO}
+    \begin{split}
+        \dot{h}=&A_hh+B_hu+Ly\\
+              \hat{x}=&h-Ey
+    \end{split}
+\end{equation}
+
+Que seja capaz de rejeitar a entrada desconhecida $w$, com $\hat{x} \in \Re^{n*1}$ definido como o vetor de estados estimados do sistema e $h \in \Re^{n*1}$ definido como o vetor de estados internos do observador. As matrizes $A_h$, $B_h$, L e E são constantes e projetadas para minimizar o erro de estimação dos estados do sistema.
+
+Escolhida a estrutura do observador, define-se o erro de estimação com $e=x-\hat{x}$ e o reescrevemos da seguinte maneira:
+
+\begin{equation}
+    e=x-h+E_y = (I+EC)x-h
+\end{equation}
+
+Definindo-e a variável de linearização $M=I+EC$, a dinâmica do erro de estimação pode ser reescrita como segue:
+
+\begin{equation} \footnotesize
+    \begin{split}
+        \dot{e}=&M\dot{x}-\dot{h}\\
+        \dot{e}=&M(A(\alpha)x+B_uu+B_w(\alpha)w)-A_hh-B_hu-Ly\\
+        \dot{e}=&M(A(\alpha)x+B_uu+B_w(\alpha)w)-A_hh-B_hu-LCx\\
+        \dot{e}=&MA(\alpha)x+MB_uu+MB_w(\alpha)w-A_hMx+A_he-B_hu-LCx\\
+    \end{split}   
+\end{equation}
+\normalsize
+Que produz o seguinte resultado:
+
+\begin{equation} 
+    \dot{e}=A_he+(MA(\alpha)-LC-A_hM)x+(MB_u-B_h)u+MB_w(\alpha)w
+\end{equation}
+
+O objetivo do observador de entradas desconhecidas é desacoplar os efeitos destas entradas, sejam elas conhecidas ou não, da dinâmica do observador. Para que isto ocorra, as seguintes relações devem ser verdadeiras:
+
+\begin{equation} \label{eq:cond1UIO}
+    MB_u-B_h=0    
+\end{equation}
+
+\begin{equation} \label{eq:cond2UIO}
+    MB_w(\alpha)=0
+\end{equation}
+
+\begin{lema}[Condição necessária de existência do UIO] \label{eq:lema1UIO}
+    \begin{equation} 
+        rank(B_w(\alpha))=rank(CB_w(\alpha)), \forall\alpha \in \Lambda_N
+    \end{equation}    
+\end{lema}
+
+Desde que todas as condições dadas nas equações \ref{eq:cond1UIO}, \ref{eq:cond2UIO} e no Lema \ref{eq:lema1UIO} sejam atendidas, a dinâmica do erro de estimação é dada por:
+
+\begin{equation} \label{eq:erroUIO}
+    \dot{e}=A_he+(MA(\alpha)-LC-A_hM)x
+\end{equation}
+
+Ao analisar a Equação \ref{eq:erroUIO} é possível notar que existe interferência da dinâmica dos estados do sistema \ref{eq:part_linsys} na dinâmica do erro de estimação. Porém, dado que a matriz $A$ depende de parâmetros incertos $\alpha$, não é possível determinar matrizes constantes$A_h$ e $L$ tais que possa-se garantir o desacoplamento exato do sistema da dinâmica do erro. Desta maneira, o projeto do observador é feito de modo a atenuar a interferência dos estados sobre o erro de estimação, esse procedimento é semelhante ao que foi desenvolvido nos trabalhos de(ZEMOUCHE; BOUTAYEB; BARA, 2008), que minimiza o ganho ℒ2sobre o sistema.Portanto, o objetivo do projeto é determinar as matrizes��ℎe��que garantam a mini-mização do erro em estado estacionário e atenuação da influência dos��sobre o erro. Emsistemas precisamente conhecidos, existe um UIO que desacopla a influência dos estados��
