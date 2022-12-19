@@ -1,0 +1,80 @@
+\subsection{Modelo numérico do sistema de suspensão ativa}
+Com base nas matrizes A e B do sistema linearizado obtidas em \ref{ed:linsys:ax} e \ref{ed:linsys:BuBw} e nos parâmetros na tabela \ref{tb:parametros} do Apêndice, obtemos os seguintes valores numéricos do sistema LTI que será utilizado no benchmark deste trabalho, considerou-se que o sistema é um LPV com incerteza paramétrica $\delta$ na massa do veiculo, podendo variar em $\pm 100 kg$ ao redor do valor nominal do modelo de dependendo do carregamento do veiculo:
+%\ms, \mus, \bls, \bnls, \bys, \kls, \knls, \kt
+
+\begin{equation}\label{ed:linsys:ALPV}
+    \begin{split}
+        \mathbf{A} =
+        \begin{bmatrix}
+            0 & 1 & 0 & 0 & \\            
+            -\frac{\kls}{\ms+\delta}&-\frac{\bls}{\ms+\delta}&\frac{\kls}{\ms+\delta}&\frac{\bls}{\ms+\delta} &\\ \  
+            0 & 0 & 0 & 1 & \\
+            \frac{\kls}{\mus}&\frac{\bls}{\mus}&-\frac{(6925.1077\cdot10^{3})}{\mus}&-\frac{\bls}{\mus} &\\
+        \end{bmatrix}
+    \end{split}
+\end{equation}
+
+\begin{equation}\label{ed:linsys:BLPV}
+    \begin{split}
+        \mathbf{B_u} = 
+        \begin{bmatrix}
+            0 & \\            
+            -\frac{1}{\ms+\delta}&\\ \\  
+            0 & \\
+            \frac{1}{\mus}&\\
+        \end{bmatrix};
+    \end{split}
+    \begin{split}
+        \mathbf{B_w} = 
+        \begin{bmatrix}
+            0 & \\            
+            0 &\\ \\  
+            0 & \\
+            \frac{\kt}{\mus}& \\
+        \end{bmatrix}
+    \end{split}
+\end{equation}
+
+Para a matriz $\mathbf{C}$ consideraremos ser possível a leitura de todos os estados do sistema, e para as matrizes $D_u$ e $D_w$, consideramos que não há termo de transmissão direta das entradas, como exibido a seguir:
+
+\begin{equation} \label{eq:matriz_c}
+    \begin{split}
+        \mathbf{C}=
+    \end{split}
+    \begin{bmatrix}
+        1&0&0&0&\\
+        0&1&0&0&\\
+        0&0&1&0&\\
+        0&0&0&1&\\
+    \end{bmatrix};\ \
+    \begin{split}
+        \mathbf{D_u} = 0
+    \end{split};\ \
+    \begin{split}
+        \mathbf{D_w} = 0
+    \end{split};\ \ 
+\end{equation}
+
+\subsection{Especificação da região de \( \mathcal{D}\)-estabilidade desejada}
+
+Deseja-se um valor de Máximo overshoot percentual de $M_O \leq 10$ \% e Tempo de acomodação para a faixa de tolerância de 2 \% $T_S \leq 0.5$ s. 
+Dada a equação para o cálculo da taxa de amortecimento para um valor de máximo overshoot dado, obtém-se o seguinte valor objetivo para $\xi$:
+
+\begin{equation*}
+    \xi=-\frac{ln\left(0.1\right)}{\sqrt{\pi^2+ln^2(0.1)}}=0.5912
+\end{equation*}
+
+Dada a equação para o cálculo da $\omega_n$ objetivo para um tempo de assentamento dado, obtém-se o seguinte valor objetivo para $\omega_n$:
+
+\begin{equation*}
+    \omega_n=-\frac{ln\left( 0.02*\sqrt{1-0.5912} \right)}{0.5*0.5912}=13.5328
+\end{equation*}
+
+Para $\xi=0.5912$ e $\omega_n=13.5328$ os parâmetros $\sigma_p$ e $\theta$ são obtidos como se segue
+
+\begin{equation*}
+    \begin{split}
+       \sigma_p=-\omega_n=-13.5328\ \ rad\cdot s^{-1}\\
+       \theta=\pi-\cos{(\xi)}^{-1}=0.9383\ \ rad\\    
+    \end{split}
+\end{equation*}
