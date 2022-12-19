@@ -56,7 +56,6 @@ Para a matriz $\mathbf{C}$ consideraremos ser possível a leitura de todos os es
 \end{equation}
 
 \subsection{Especificação da região de \( \mathcal{D}\)-estabilidade desejada}
-
 Deseja-se um valor de Máximo overshoot percentual de $M_O \leq 10$ \% e Tempo de acomodação para a faixa de tolerância de 2 \% $T_S \leq 0.5$ s. 
 Dada a equação para o cálculo da taxa de amortecimento para um valor de máximo overshoot dado, obtém-se o seguinte valor objetivo para $\xi$:
 
@@ -72,9 +71,36 @@ Dada a equação para o cálculo da $\omega_n$ objetivo para um tempo de assenta
 
 Para $\xi=0.5912$ e $\omega_n=13.5328$ os parâmetros $\sigma_p$ e $\theta$ são obtidos como se segue
 
-\begin{equation*}
+\begin{equation}\label{ed:dstab:params}
     \begin{split}
        \sigma_p=-\omega_n=-13.5328\ \ rad\cdot s^{-1}\\
        \theta=\pi-\cos{(\xi)}^{-1}=0.9383\ \ rad\\    
     \end{split}
+\end{equation}
+
+Apenas para limitar a região de \( \mathcal{D}\)-estabilidade desejada, tomaremos o limite a esquerda como sendo $20\cdot\sigma_p$. A região de \( \mathcal{D}\)-estabilidade definida para acomodação do sistema é exibida na figura \ref{eq:dsta:regiaodef} a seguir:
+
+\FloatBarrier
+\begin{figure}[htbp] 
+  \begin{centering}
+    \includegraphics[width=8cm,height=6cm]{img/regiao_d_estabilidade.png}
+    \caption{Região definida de estabilidade}
+    \label{eq:dsta:regiaodef}
+  \end{centering}
+\end{figure}
+\FloatBarrier
+
+\subsection{Controlador Robusto por realimentação de estados com \( \mathcal{D}\)-estabilidade garantida}
+Considerando o sistema no espaço de estados apresentado em \eqref{eq:dsta:linsys} com incerteza paramétrica nas matrizes $A$ e $B$, cujos valores são apresentados em \eqref{ed:linsys:ALPV} e \eqref{ed:linsys:BLPV}, em que o parâmetro $\delta$ representa a incerteza do modelo associada a massa do veiculo de $\pm100kg$. A síntese do  controlador  robusto ́e  realizada  pela  resolução das LMIs \eqref{eq:dsta:lmis} e \eqref{eq:dsta:lmisaux} para os parâmetros da região de \( \mathcal{D}\)-estabilidade definidos em \eqref{ed:dstab:params}. Os ganhos obtidos do procedimento de otimização são exibidos abaixo com precisão de 4 casas decimais:
+
+\begin{equation*} \label{eq:ganhoscontrolador}
+    K^'=
+    \begin{bmatrix}
+        -514929.0792&\\	
+        -51637.9194&\\	
+        791876.7347&\\
+        2492.4857&\\
+    \end{bmatrix}
 \end{equation*}
+
+Calculou-se a localização dos autovalores do sistema para os valores de $\sigma = -100, -90, \dots, 90, 100$ e os resultados são exibidos na figura abaixo, com o sistema em malha aberta e malha fechada.
