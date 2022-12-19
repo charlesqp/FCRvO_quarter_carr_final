@@ -74,16 +74,17 @@ Para $\xi=0.5912$ e $\omega_n=13.5328$ os parâmetros $\sigma_p$ e $\theta$ são
 \begin{equation}\label{ed:dstab:params}
     \begin{split}
        \sigma_p=-\omega_n=-13.5328\ \ rad\cdot s^{-1}\\
+       \beta_p=-20\cdot\omega_n=-270.6566\ \ rad\cdot s^{-1}\\
        \theta=\pi-\cos{(\xi)}^{-1}=0.9383\ \ rad\\    
     \end{split}
 \end{equation}
 
-Apenas para limitar a região de \( \mathcal{D}\)-estabilidade desejada, tomaremos o limite a esquerda como sendo $20\cdot\sigma_p$. A região de \( \mathcal{D}\)-estabilidade definida para acomodação do sistema é exibida na figura \ref{eq:dsta:regiaodef} a seguir:
+Apenas para limitar a região de \( \mathcal{D}\)-estabilidade desejada, tomaremos o limite a esquerda como sendo $20\cdot\sigma_p$. A região de \( \mathcal{D}\)-estabilidade definida para acomodação do sistema é exibida na figura \eqref{eq:dsta:regiaodef} a seguir:
 
 \FloatBarrier
 \begin{figure}[htbp] 
   \begin{centering}
-    \includegraphics[width=8cm,height=6cm]{img/regiao_d_estabilidade.png}
+    \includegraphics[width=7.5cm]{img/regiao_d_estabilidade.png}
     \caption{Região definida de estabilidade}
     \label{eq:dsta:regiaodef}
   \end{centering}
@@ -103,14 +104,42 @@ Considerando o sistema no espaço de estados apresentado em \eqref{eq:dsta:linsy
     \end{bmatrix}
 \end{equation*}
 
-Calculou-se a localização dos autovalores do sistema para os valores de $\sigma = -100, -90, \dots, 90, 100$ e os resultados são exibidos na figura abaixo, com o sistema em malha aberta e malha fechada.
+Calculou-se a localização dos autovalores do sistema para os valores de $\delta = -100, -90, \dots, 90, 100$ e os resultados são exibidos na figura abaixo, com o sistema em malha aberta e malha fechada.
 \FloatBarrier
 \begin{figure}[htbp]
     \begin{centering}
-    \includegraphics[width=8cm]{img/regiao_d_estabilidade_autoval.png}
+    \includegraphics[width=7.5cm]{img/regiao_d_estabilidade_autoval.png}
     \includegraphics[width=6cm]{img/regiao_d_estabilidade_autoval_leg.png}
     \caption{Autovalores do sistema}
     \label{fig:regiao_d_estabilidade_autoval_leg}
     \end{centering}
 \end{figure}
 \FloatBarrier
+
+Ao analisar o gráfico, nota-se que o controlador projetado foi capaz de manter os autovalores responsáveis pela resposta dinâmica do sistema em malha fechada dentro da região de \( \mathcal{D}\)-estabilidade para todos os valores testados do parâmetro $\delta$, sendo então um controlador com requsitos de desempenho temporal garantido.
+\subsection{Observador de Luenberger}
+Foi decidido que a dinâmica do estimador de estados deve ser 3 vezes  mais rápida do que a dinâmica do sistema em malha fechada, Foi adicionado o valor de $\beta_p=-270.6566$ como offset aos autovalores da planta original.
+Estes foram utilizados para definir o conjunto de ganhos $L$ do observador de estados através da fórmula de Lyapunov definida em \eqref{eq:lyapunov}. 
+Desta maneira, foi encontrada a seguinte matriz de ganhos de realimentação para o observador de estados linear, números arredondados na quarta casa decimal:
+
+\begin{equation} \label{eq:ganhos_pred} \small
+    \begin{split}
+        \mathbf{L}=\
+    \end{split}
+    \begin{bmatrix}
+       -14634.2594& -14634.2594& -14634.2594& -14634.2594&\\
+        23918.8824&  23918.8824&  23918.8824&  23918.8824&\\
+        -1401.1937&  -1401.1937&  -1401.1937&  -1401.1937&\\
+        -6800.803 &  -6800.803 &  -6800.803 &  -6800.803 &\\
+    \end{bmatrix}
+\end{equation}
+
+Uma simulação temporal do sistema linear controlado pelo ganho de realimentação de estados, obtido através do preditor desenvolvido nesta seção é exibido nas figuras a seguir. Para isso considerou-se o sistema operando na condição nominal com $\delta=0$, em malha aberta, e uma entrada de perturbação dada por:
+
+\begin{equation*} \footnotesize
+    \omega(t)=0.6sin(8\pi t)+0.75sin(12\pi t)+0.9sin(16\pi t)+0.5sin(20\pi t)
+\end{equation*}
+
+ 
+
+
