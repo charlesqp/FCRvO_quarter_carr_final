@@ -97,7 +97,7 @@ Apenas para limitar a região de \( \mathcal{D}\)-estabilidade desejada, tomarem
 \end{figure}
 \FloatBarrier
 
-\subsection{Controlador Robusto por realimentação de estados com \( \mathcal{D}\)-estabilidade garantida}
+\subsection{Controlador Robusto por realimentação de estados com \( \mathcal{D}\)-estabilidade garantida}\label{subsec:res:control}
 Considerando o sistema no espaço de estados apresentado em \eqref{eq:dsta:linsys} com incerteza paramétrica nas matrizes $A$ e $B$, cujos valores são apresentados em \eqref{ed:linsys:ALPV} e \eqref{ed:linsys:BLPV}, em que o parâmetro $\delta$ representa a incerteza do modelo associada a massa do veiculo de $\pm100kg$. A síntese do  controlador  robusto ́e  realizada  pela  resolução das LMIs \eqref{eq:dsta:lmis} e \eqref{eq:dsta:lmisaux} para os parâmetros da região de \( \mathcal{D}\)-estabilidade definidos em \eqref{ed:dstab:params}. Os ganhos obtidos do procedimento de otimização são exibidos abaixo com precisão de 4 casas decimais:
 
 \begin{equation*} \label{eq:ganhoscontrolador}
@@ -122,11 +122,11 @@ Calculou-se a localização dos autovalores do sistema para os valores de $\delt
 \end{figure}
 \FloatBarrier
 
-Ao analisar o gráfico, nota-se que o controlador projetado foi capaz de manter os autovalores responsáveis pela resposta dinâmica do sistema em malha fechada dentro da região de \( \mathcal{D}\)-estabilidade para todos os valores testados do parâmetro $\delta$, sendo então um controlador com requsitos de desempenho temporal garantido.
+Ao analisar o gráfico, nota-se que o controlador projetado foi capaz de manter os autovalores responsáveis pela resposta dinâmica do sistema em malha fechada dentro da região de \( \mathcal{D}\)-estabilidade para todos os valores testados do parâmetro $\delta$, sendo então um controlador que garante os requsitos de desempenho temporal.
 \subsection{Observador de Luenberger}
-Foi decidido que a dinâmica do estimador de estados deve ser 3 vezes  mais rápida do que a dinâmica do sistema em malha fechada, Foi adicionado o valor de $\beta_p=-270.6566$ como offset aos autovalores da planta original.
+Projetou-se a dinâmica do estimador de estados para ser 3 vezes  mais rápida do que a dinâmica do sistema em malha fechada, Adicionou-se o valor de $\beta_p=-270.6566$ como offset aos autovalores da planta original.
 Estes foram utilizados para definir o conjunto de ganhos $L$ do observador de estados através da fórmula de Lyapunov definida em \eqref{eq:lyapunov}. 
-Desta maneira, foi encontrada a seguinte matriz de ganhos de realimentação para o observador de estados linear, números arredondados na quarta casa decimal:
+Desta maneira, foi encontrada a seguinte matriz de ganhos de realimentação para o observador de estados:
 
 \begin{equation} \label{eq:ganhos_pred} \small
     \begin{split}
@@ -140,46 +140,56 @@ Desta maneira, foi encontrada a seguinte matriz de ganhos de realimentação par
     \end{bmatrix}
 \end{equation}
 
-Uma simulação temporal do sistema linear controlado pelo ganho de realimentação de estados, obtido através do preditor desenvolvido nesta seção é exibido nas figuras a seguir. Para isso considerou-se o sistema operando na condição nominal com $\delta=0$, em malha aberta, e uma entrada de perturbação dada por:
+\subsection{Observador de entradas desconhecidas}
+Aplicando o Teorema \ref{theo:UIO}, obteve-se um limitante $\gamma=2.9084\cdot10^{-5}$. 
 
-\begin{equation}\label{eq:estatdos_perturbacao} \footnotesize
+\subsection{Comparação do erro de estimação de estado}
+
+Uma simulação temporal do sistema linear em malha aberta é exibido nas figuras a seguir. A figura \ref{fig:setup_testeobs} mostra o experimento desenvolvido em Simulink para testar os observadores.
+Para esta simulação considerou-se o sistema operando na condição nominal com $\delta=0$, em malha aberta, e uma entrada de perturbação como exibida na equação \eqref{eq:estatdos_perturbacao} e na figura \ref{fig:estatdos_perturbacao}.
+
+\begin{figure*}
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/setup_teste_observador.png}
+    \caption{Experimento em simulink para teste dos observadores Luenberger e UIO.}
+    \label{fig:setup_testeobs}
+\end{figure*}
+\FloatBarrier
+
+ Perturbação para teste do observador
+\begin{equation}\label{eq:estatdos_perturbacao}  \footnotesize
     \omega(t)=0.6sin(8\pi t)+0.75sin(12\pi t)+0.9sin(16\pi t)+0.5sin(20\pi t)
 \end{equation}
 
-\FloatBarrier
 \begin{figure}[htbp]
     \begin{centering}
-    \includegraphics[width=7.5cm]{img/estatdos_perturbacao.png} 
+    \includegraphics[width=7cm]{img/estatdos_perturbacao.png} 
     \caption{Perturbação para teste do observador}
     \label{fig:estatdos_perturbacao}
     \end{centering}
 \end{figure}
-\FloatBarrier
 
-A figuras \ref{fig:estatdos_luenberger} a seguir mostram a evolução dos estados reais e preditos enquanto a figura \ref{fig:estatdos_erro_luenberg} mostra o erro de predição dos estados.
+A figura \ref{fig:estatdos_luenberger} mostra a comparação entre os estados lidos e preditos no observador de Luenberger enquanto a figura \ref{fig:estatdos_UIO} mostra a mesma informação para o observador UIO. As figuras \ref{fig:estatdos_erro_luenberg} e \ref{fig:estatdos_erro_UIO} mostram o erro de predição do preditor de Luenberger e UIO respectivamente.
 
 \FloatBarrier
 \begin{figure}[htbp]
     \begin{centering}
-    \includegraphics[width=7.5cm]{img/estatdos_luenberger.png} 
+    \includegraphics[width=7cm]{img/estatdos_luenberger.png} 
     \caption{Comparação dos estados do sistema com o observador de Luenberger}
     \label{fig:estatdos_luenberger}
     \end{centering}
 \end{figure}
-\FloatBarrier
 
-\FloatBarrier
 \begin{figure}[htbp]
     \begin{centering}
-    \includegraphics[width=7.5cm]{img/estatdos_erro_luenberg.png} 
+    \includegraphics[width=7cm]{img/estatdos_erro_luenberg.png} 
     \caption{Erro do observador de Luenberger}
     \label{fig:estatdos_erro_luenberg}
     \end{centering}
 \end{figure}
 \FloatBarrier
 
-\subsection{Observador de entradas desconhecidas}
-Aplicando o Teorema \ref{theo:UIO}, obteve-se um limitante $\gamma=2.9084\cdot10^{-5}$. Simulou-se o sistema em conjunto com o observador aplicando a mesma perturbação definida em \eqref{eq:estatdos_perturbacao}.
+Simulou-se o sistema em conjunto com o observador aplicando a mesma perturbação definida em \eqref{eq:estatdos_perturbacao}.
 A figuras \ref{fig:estatdos_luenberger} a seguir mostram a evolução dos estados reais e preditos enquanto a figura \ref{fig:estatdos_erro_luenberg} mostra o erro de predição dos estados.
 
 \FloatBarrier
@@ -201,8 +211,9 @@ A figuras \ref{fig:estatdos_luenberger} a seguir mostram a evolução dos estado
     \end{centering}
 \end{figure}
 \FloatBarrier
-\subsection{Comparativo do erro de estimação de estado}
+
 Os dados das simulações temporais exibidos nas figuras \ref{fig:estatdos_erro_luenberg} e \ref{fig:estatdos_erro_UIO} foram compilados em tabelas onde se exibem o erro médio, o erro máximo e o erro RMS.
+
 \begin{table}[h!]
 \footnotesize
 \centering
@@ -232,5 +243,6 @@ Os dados das simulações temporais exibidos nas figuras \ref{fig:estatdos_erro_
         \hline
     \end{tabular} \label{tb:comparacao_erro_estados}\caption{Características do erro de estimação deestados com observdor de Luenberger}
 \end{table}
+\subsection{Comparação da estratégia de controle da transmissão de vibrações}
+Para avaliar a eficiência das estratégias de controle serão considerados três critérios a velocidade vertical da massa do veiculo, a aceleração e o \emph{Jerk}. Jerk, ou arranco ou arrancada, é definido como a derivada da aceleração e é uma medida de conforto veicular. No caso pretende-se avaliar qual estratégia de controle foi mais eficaz em promover o amortecimento da vibração. Enfatize-se que ambas utilizam o mesmo controlador robusto definido na seção \ref{subsec:res:control}, diferindo apenas no tipo de observador de estados empregado.
 
- 
