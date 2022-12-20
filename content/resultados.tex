@@ -136,9 +136,9 @@ Desta maneira, foi encontrada a seguinte matriz de ganhos de realimentação par
 
 Uma simulação temporal do sistema linear controlado pelo ganho de realimentação de estados, obtido através do preditor desenvolvido nesta seção é exibido nas figuras a seguir. Para isso considerou-se o sistema operando na condição nominal com $\delta=0$, em malha aberta, e uma entrada de perturbação dada por:
 
-\begin{equation*} \footnotesize
+\begin{equation}\label{eq:estatdos_perturbacao} \footnotesize
     \omega(t)=0.6sin(8\pi t)+0.75sin(12\pi t)+0.9sin(16\pi t)+0.5sin(20\pi t)
-\end{equation*}
+\end{equation}
 
 \FloatBarrier
 \begin{figure}[htbp]
@@ -149,6 +149,32 @@ Uma simulação temporal do sistema linear controlado pelo ganho de realimentaç
     \end{centering}
 \end{figure}
 \FloatBarrier
+
+A figuras \ref{fig:estatdos_luenberger} a seguir mostram a evolução dos estados reais e preditos enquanto a figura \ref{fig:estatdos_erro_luenberg} mostra o erro de predição dos estados.
+
+\FloatBarrier
+\begin{figure}[htbp]
+    \begin{centering}
+    \includegraphics[width=7.5cm]{img/estatdos_luenberger.png} 
+    \caption{Comparação dos estados do sistema com o observador de Luenberger}
+    \label{fig:estatdos_luenberger}
+    \end{centering}
+\end{figure}
+\FloatBarrier
+
+\FloatBarrier
+\begin{figure}[htbp]
+    \begin{centering}
+    \includegraphics[width=7.5cm]{img/estatdos_erro_luenberg.png} 
+    \caption{Erro do observador de Luenberger}
+    \label{fig:estatdos_erro_luenberg}
+    \end{centering}
+\end{figure}
+\FloatBarrier
+
+\subsection{Observador de entradas desconhecidas}
+Aplicando o Teorema \ref{theo:UIO}, obteve-se um limitante $\gamma=2.9084\cdot10^{-5}$. Simulou-se o sistema em conjunto com o observador aplicando a mesma perturbação definida em \eqref{eq:estatdos_perturbacao}.
+A figuras \ref{fig:estatdos_luenberger} a seguir mostram a evolução dos estados reais e preditos enquanto a figura \ref{fig:estatdos_erro_luenberg} mostra o erro de predição dos estados.
 
 \FloatBarrier
 \begin{figure}[htbp]
