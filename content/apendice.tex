@@ -17,7 +17,6 @@
         \hline
     \end{tabular}    \label{tb:parametros}\caption{Parâmetros da suspensão ativa não linear, fonte \cite{MarceloTusset2008MINISTERIOPor}.}
 \end{table}
-
 \section{\\Lista de siglas e abreviações}
     \begin{itemize} 
         \item [LTI] Linear e invariante no tempo.
@@ -42,4 +41,19 @@
   %     \item [$b^{l}_{s}$] Coeficiente de amortecimento do termo da faixa de %operação não linear do amortecedor.
    %     \item [$b^{y}_{s}$] Coeficiente que representa a característica  de %comportamento assimétrico do amortecedor.
     \end{itemize}
-\section{}\listoffigures
+%\section{}\listoffigures
+\FloatBarrier
+\section{\\Experimentos em simulink}
+\begin{figure*}
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/setup_teste_observador.png}
+    \caption{Experimento em simulink para teste dos observadores Luenberger e UIO.}
+    \label{fig:setup_testeobs}
+\end{figure*}
+\begin{figure*}
+    \centering
+    \includegraphics[width=0.8\textwidth]{img/setup_teste_controlador.png}
+    \caption{Experimento em simulink para teste do desempenho das extratégis de controle empregando observadores de Luenberger e UIO.}
+    \label{fig:setup_testectr}
+\end{figure*}
+\FloatBarrier
