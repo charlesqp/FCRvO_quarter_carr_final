@@ -44,15 +44,21 @@ Para a matriz $\mathbf{C}$ consideraremos ser possível a leitura de todos os es
     \begin{bmatrix}
         1&0&0&0&\\
         0&1&0&0&\\
-        0&0&1&0&\\
-        0&0&0&1&\\
     \end{bmatrix};\ \
     \begin{split}
-        \mathbf{D_u} = 0
+        \mathbf{D_u}= 
     \end{split};\ \
+    \begin{bmatrix}
+        0&\\
+        0&\\
+    \end{bmatrix};\ \
     \begin{split}
-        \mathbf{D_w} = 0
+        \mathbf{D_w}=
     \end{split};\ \ 
+    \begin{bmatrix}
+        0&\\
+        0&\\
+    \end{bmatrix};\ \
 \end{equation}
 
 \subsection{Especificação da região de \( \mathcal{D}\)-estabilidade desejada}
@@ -179,9 +185,9 @@ A figuras \ref{fig:estatdos_luenberger} a seguir mostram a evolução dos estado
 \FloatBarrier
 \begin{figure}[htbp]
     \begin{centering}
-    \includegraphics[width=7.5cm]{img/estatdos_luenberger.png} 
-    \caption{Comparação dos estados do sistema com o observador de Luenberger}
-    \label{fig:estatdos_luenberger}
+    \includegraphics[width=7.5cm]{img/estatdos_UIO.png} 
+    \caption{Comparação dos estados do sistema com o observador de entradas desconhecidas}
+    \label{fig:estatdos_UIO}
     \end{centering}
 \end{figure}
 \FloatBarrier
@@ -189,9 +195,42 @@ A figuras \ref{fig:estatdos_luenberger} a seguir mostram a evolução dos estado
 \FloatBarrier
 \begin{figure}[htbp]
     \begin{centering}
-    \includegraphics[width=7.5cm]{img/estatdos_erro_luenberg.png} 
-    \caption{Erro do observador de Luenberger}
-    \label{fig:estatdos_erro_luenberg}
+    \includegraphics[width=7.5cm]{img/estatdos_Erro_UIO.png} 
+    \caption{Erro do observador de entradas desconhecidas}
+    \label{fig:estatdos_erro_UIO}
     \end{centering}
 \end{figure}
 \FloatBarrier
+\subsection{Comparativo do erro de estimação de estado}
+Os dados das simulações temporais exibidos nas figuras \ref{fig:estatdos_erro_luenberg} e \ref{fig:estatdos_erro_UIO} foram compilados em tabelas onde se exibem o erro médio, o erro máximo e o erro RMS.
+\begin{table}[h!]
+\footnotesize
+\centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        Luenberger & $X_c$& $V_c$& $X_w$& $V_W$\\
+        \hline
+        \hline
+         Erro Médio&  0.0113& -0.0112& 0.0085&   0.0379\\ 
+         Erro Máximo& 4.1065&  4.1061& 4.0454& 200.7384\\ 
+         Erro RMS&    1.5826&  1.5824& 1.5679&  81.3797\\
+        \hline
+    \end{tabular} \label{tb:comparacao_erro_estados}\caption{Características do erro de estimação deestados com observdor de Luenberger}
+\end{table}
+
+\begin{table}[h!]
+\footnotesize
+\centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        UIO & $X_c$& $V_c$& $X_w$& $V_W$\\
+        \hline
+        \hline
+         Erro Médio& -0.0000& 0.0000& 0.0062&   0.0430\\ 
+         Erro Máximo& 0.0000& 0.0008& 4.0418& 200.7711\\ 
+         Erro RMS&    0.0000& 0.0003& 1.5685&  81.4757\\
+        \hline
+    \end{tabular} \label{tb:comparacao_erro_estados}\caption{Características do erro de estimação deestados com observdor de Luenberger}
+\end{table}
+
+ 
