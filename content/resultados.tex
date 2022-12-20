@@ -97,7 +97,7 @@ Apenas para limitar a região de \( \mathcal{D}\)-estabilidade desejada, tomarem
 \end{figure}
 \FloatBarrier
 
-\subsection{Controlador Robusto por realimentação de estados com \( \mathcal{D}\)-estabilidade garantida}\label{subsec:res:control}
+\subsection{Controlador robusto com \( \mathcal{D}\)-estabilidade garantida}\label{subsec:res:control}
 Considerando o sistema no espaço de estados apresentado em \eqref{eq:dsta:linsys} com incerteza paramétrica nas matrizes $A$ e $B$, cujos valores são apresentados em \eqref{ed:linsys:ALPV} e \eqref{ed:linsys:BLPV}, em que o parâmetro $\delta$ representa a incerteza do modelo associada a massa do veiculo de $\pm100kg$. A síntese do  controlador  robusto ́e  realizada  pela  resolução das LMIs \eqref{eq:dsta:lmis} e \eqref{eq:dsta:lmisaux} para os parâmetros da região de \( \mathcal{D}\)-estabilidade definidos em \eqref{ed:dstab:params}. Os ganhos obtidos do procedimento de otimização são exibidos abaixo com precisão de 4 casas decimais:
 
 \begin{equation*} \label{eq:ganhoscontrolador}
@@ -145,16 +145,8 @@ Aplicando o Teorema \ref{theo:UIO}, obteve-se um limitante $\gamma=2.9084\cdot10
 
 \subsection{Comparação do erro de estimação de estado}
 
-Uma simulação temporal do sistema linear em malha aberta é exibido nas figuras a seguir. A figura \ref{fig:setup_testeobs} mostra o experimento desenvolvido em Simulink para testar os observadores.
+Uma simulação temporal do sistema linear em malha aberta é exibido nas figuras a seguir. A figura \ref{fig:setup_testeobs} no Apêndice mostra o experimento desenvolvido em Simulink para testar os observadores.
 Para esta simulação considerou-se o sistema operando na condição nominal com $\delta=0$, em malha aberta, e uma entrada de perturbação como exibida na equação \eqref{eq:estatdos_perturbacao} e na figura \ref{fig:estatdos_perturbacao}.
-
-\begin{figure*}
-    \centering
-    \includegraphics[width=0.8\textwidth]{img/setup_teste_observador.png}
-    \caption{Experimento em simulink para teste dos observadores Luenberger e UIO.}
-    \label{fig:setup_testeobs}
-\end{figure*}
-\FloatBarrier
 
  Perturbação para teste do observador
 \begin{equation}\label{eq:estatdos_perturbacao}  \footnotesize
@@ -219,14 +211,14 @@ Os dados das simulações temporais exibidos nas figuras \ref{fig:estatdos_erro_
 \centering
     \begin{tabular}{|c|c|c|c|c|}
         \hline
-        Luenberger & $X_c$& $V_c$& $X_w$& $V_W$\\
+        Luenberger & $X_c$& $V_c$& $X_w$& $V_w$\\
         \hline
         \hline
          Erro Médio&  0.0113& -0.0112& 0.0085&   0.0379\\ 
          Erro Máximo& 4.1065&  4.1061& 4.0454& 200.7384\\ 
          Erro RMS&    1.5826&  1.5824& 1.5679&  81.3797\\
         \hline
-    \end{tabular} \label{tb:comparacao_erro_estados}\caption{Características do erro de estimação deestados com observdor de Luenberger}
+    \end{tabular} \label{tb:comparacao_erro_estado_LUE}\caption{Características do erro de estimação de estados com observador de Luenberger}
 \end{table}
 
 \begin{table}[h!]
@@ -234,15 +226,78 @@ Os dados das simulações temporais exibidos nas figuras \ref{fig:estatdos_erro_
 \centering
     \begin{tabular}{|c|c|c|c|c|}
         \hline
-        UIO & $X_c$& $V_c$& $X_w$& $V_W$\\
+        UIO & $X_c$& $V_c$& $X_w$& $V_w$\\
         \hline
         \hline
          Erro Médio& -0.0000& 0.0000& 0.0062&   0.0430\\ 
          Erro Máximo& 0.0000& 0.0008& 4.0418& 200.7711\\ 
          Erro RMS&    0.0000& 0.0003& 1.5685&  81.4757\\
         \hline
-    \end{tabular} \label{tb:comparacao_erro_estados}\caption{Características do erro de estimação deestados com observdor de Luenberger}
+    \end{tabular} \label{tb:comparacao_erro_estados_UIO}\caption{Características do erro de estimação de estados com observador de Luenberger}
 \end{table}
+
+A análise dos resultados exibidos nas tabelas \ref{tb:comparacao_erro_estado_LUE} e \ref{tb:comparacao_erro_estados_UIO} indica que o observador de entradas desconhecidas performou muito melhor do que o observador de Luenberger para as variáveis de estado para as quais houve possibilidade de leitura. Para ambos os observadores, o erro médio sempre se aproxima de zero, como esperado. Sendo da ordem de $10\cdot^{-2}$ para o observador de Luenberger e $10\cdot^{-6}$ para o observador UIO nas variáveis de estado $Xc$ e $Vc$. O erro Máximo e o erro RMS tem relação com o erro de estimação durante a resposta transitória do sistema. Ambos são da ordem de $10\cdot^{0}$ para o observador UIO nas variáveis de estado $Xc$ e $Vc$. Enquanto isso, o erro máximo e o erro RMS alcança valores da ordem de $10\cdot^{-4}$ para $Vc$ e $10\cdot^{-9}$ para $Xc$ quando o observador UIO é empregado.
+É interessante notar que a ordem de grandeza do erro para as variáveis $Xw$ e $Vw$ são idênticas em ambos os casos. Isso pode ser explicado pela ausência da informação medida dessas variáveis na matriz $C$ do sistema. Ao observar os gráficos destas variáveis de estado em ambos os observadores, nota-se que o valor estimado de ambas é próximo de zero em ambos os observadores.
+
 \subsection{Comparação da estratégia de controle da transmissão de vibrações}
 Para avaliar a eficiência das estratégias de controle serão considerados três critérios a velocidade vertical da massa do veiculo, a aceleração e o \emph{Jerk}. Jerk, ou arranco ou arrancada, é definido como a derivada da aceleração e é uma medida de conforto veicular. No caso pretende-se avaliar qual estratégia de controle foi mais eficaz em promover o amortecimento da vibração. Enfatize-se que ambas utilizam o mesmo controlador robusto definido na seção \ref{subsec:res:control}, diferindo apenas no tipo de observador de estados empregado.
+Na figura \ref{fig:setup_testectr} no Apêndice é exibido o setup do experimento em Simulink para simulação das estratégias de controle.
+
+Nas figuras a seguir são exibidos a velocidade de deslocamento vertical da massa do veiculo, a aceleração e o \emph{Jerk}. A figura \ref{fig:eval_cntrol_LUE} a seguir corresponde ao sistema de controle com observador de Luenberger. A figura \ref{fig:eval_cntrol_UIO} adiante corresponde ao sistema de controle com observador UIO.
+\FloatBarrier
+\begin{figure}[htbp]
+    \begin{centering}
+    \includegraphics[width=7.5cm]{img/eval_cntrol_LUE.png} 
+    \caption{Saídas de desempenho do sistema em malha fechada com o controlador robusto e observador de Luenberger}
+    \label{fig:eval_cntrol_LUE}
+    \end{centering}
+\end{figure}
+\FloatBarrier
+
+\begin{figure}[htbp]
+    \begin{centering}
+    \includegraphics[width=7.5cm]{img/eval_cntrol_UIO.png} 
+    \caption{Saídas de desempenho do sistema em malha fechada com o controlador robusto e observador de entradas desconhecidas}
+    \label{fig:eval_cntrol_UIO}
+    \end{centering}
+\end{figure}
+\FloatBarrier
+
+Os dados das simulações temporais exibidos nas figuras \ref{fig:eval_cntrol_LUE} e \ref{fig:eval_cntrol_UIO} foram compilados em tabelas onde se exibem o valor médio, o valor máximo e o valor RMS para as variáveis de interesse.
+\FloatBarrier
+\begin{table}[h!]
+\footnotesize
+\centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        Luenberger& $V_c$& $A_c$& $Jerk_c$\\
+        \hline
+        \hline
+         Valor Médio&   -0.1154&    0.0004&    0.0001\\ 
+         Valor Máximo&  48.6894&    1.1632&    0.5598\\ 
+         Valor RMS&     17.5553&    0.4459&    0.0257\\
+        \hline
+    \end{tabular} \label{tb:comparacao_controle_LUE}\caption{Características do sistema de controle de vibração com observador de Luenberger}
+\end{table}
+
+\begin{table}[h!]
+\footnotesize
+\centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        UIO& $V_c$& $A_c$& $Jerk_c$\\
+        \hline
+        \hline
+         Valor Médio&   -0.0386&   -0.0005&    0.0000\\ 
+         Valor Máximo&  12.8600&    0.3257&    0.1310\\ 
+         Valor RMS&      4.7256&    0.1178&    0.0071\\
+        \hline
+    \end{tabular} \label{tb:comparacao_controle_UIO}\caption{Características do sistema de controle de vibração com observador de entradas desconhecidas}
+\end{table}
+\FloatBarrier
+
+A análise dos resultados exibidos nas tabelas \ref{tb:comparacao_controle_LUE} e \ref{tb:comparacao_controle_UIO} indica que o observador de entradas desconhecidas performou muito melhor do que o observador de Luenberger. Os valores médios de todas as variáveis de interesse, $V_c$ $A_c$ e $Jerk_c$, estão próximos de zero, como esperado. Os valores máximos das variáveis são menores quando se emprega o observador UIO na malha de controle, sendo aproximadamente 3 vezes menor para todas as variáveis. Comportamento semelhante pode ser observado para o valor RMS das variáveis. 
+Uma hipótese explicativa para este melhor desempenho da malha de controle é que a eficiência da estratégia de controle seja proporcional ao erro de estimativa da variável de estado. Como o observador UIO alcança valores muito menores de erro máximo e RMS na estimativa dos estados do sistema em comparação com o observador de Luenberger, este alcança melhor desempenho no controle em malha fechada.
+\subsection{Comparação do desempenho do controlador robusto com \( \mathcal{D}\)-estabilidade garantida para perturbação em degrau}
+Escolheu-se avaliar a eficiência das estratégias de controle utilziando o observador UIO em conjunto com o controlador robusto com \( \mathcal{D}\)-estabilidade garantida para uma perturbação em degrau unitário. Para isto, serão avaliados as leituras das variáveis do sistema $Xc$ e $VC$ quando o sistema é perturbado por uma entrada em degrau unitário. Os resultados obtidos pelo sistema controlado são comparados com os resultados do sistema em malha aberta para avaliação se os parâmetros de desempenho temporal são atendidos. As simulações foram realizadas para múltiplos valores do parâmetro $\delta$, com $-100kg\leq \delta\leq 100kg$ em passos de 5kg. O resultado da simulação temporal e exibido nas figuras a seguir:
 
