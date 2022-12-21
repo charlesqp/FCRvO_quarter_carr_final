@@ -266,9 +266,9 @@ Os dados das simulações temporais exibidos nas figuras \ref{fig:estatdos_erro_
         Luenberger & $X_c$& $V_c$& $X_w$& $V_w$\\
         \hline
         \hline
-         Erro Médio&  1.2892&   -7.5121&   -4.6548&   10.9155\\ 
-         Erro Máximo& 76.2538&  157.5491&  123.1720&  202.6507\\ 
-         Erro RMS&    22.7196&   58.9452&   53.7731&   93.5771\\
+         Erro Médio&  0.1726&   -0.1078&   -0.0041&   -0.0677\\ 
+         Erro Máximo& 76.4211&  157.6555&    4.0943&   98.8139\\ 
+         Erro RMS&    20.5027&   49.7983&    1.5881&   36.9324\\
         \hline
     \end{tabular} \label{tb:comparacao_erro_estado_LUE}\caption{Características do erro de estimação de estados com observador de Luenberger}
 \end{table}
@@ -290,9 +290,9 @@ Os dados das simulações temporais exibidos nas figuras \ref{fig:estatdos_erro_
 \FloatBarrier
 
 A análise dos resultados exibidos nas tabelas \ref{tb:comparacao_erro_estado_LUE} e \ref{tb:comparacao_erro_estados_UIO} indica que o observador de entradas desconhecidas performou muito melhor do que o observador de Luenberger para todas as variáveis de estado. 
-Na análise do valor do erro médio, é esperado que este se aproxime de zero, esta métrica para o observador de Luenberger isso não aconteceu sob perturbação, para o observador UIO o valor do erro médio é próximo de zero com precisão de pelo menos $10\cdot^{-3}$. 
-O erro Máximo e o erro RMS tem relação com o erro de estimação durante a resposta transitória do sistema. Ambos são da ordem de $10\cdot^{0}$ para o observador UIO nas variáveis de estado $Xc$ e $Vc$. Enquanto isso, o erro máximo e o erro RMS alcança valores da ordem de $10\cdot^{-4}$ para $Vc$ e $10\cdot^{-9}$ para $Xc$ quando o observador UIO é empregado.
-É interessante notar que a ordem de grandeza do erro para as variáveis $Xw$ e $Vw$ são idênticas em ambos os casos. Isso pode ser explicado pela ausência da informação medida dessas variáveis na matriz $C$ do sistema. Ao observar os gráficos destas variáveis de estado em ambos os observadores, nota-se que o valor estimado de ambas é próximo de zero em ambos os observadores.
+Na análise do valor do erro médio, é esperado que este se aproxime de zero, o que acontece para ambos os observadores. O erro médio indica uma medida do enviesamento da variável predita.
+O erro Máximo tem relação com o pior erro de estimação durante a resposta transitória do sistema. O estimador UIO este performou muito melhor do que o estimador de Luenberger em todas as variáveis.
+O erro RMS tem relação com a variância do erro durante durante a resposta transitória do sistema. O estimador UIO este performou muito melhor do que o estimador de Luenberger em todas as variáveis.
 
 \subsection{Comparação da estratégia de controle da transmissão de vibrações}
 Para avaliar a eficiência das estratégias de controle serão considerados três critérios a velocidade vertical da massa do veiculo, a aceleração e o \emph{Jerk}. Jerk, ou arranco ou arrancada, é definido como a derivada da aceleração e é uma medida de conforto veicular. No caso pretende-se avaliar qual estratégia de controle foi mais eficaz em promover o amortecimento da vibração. Enfatize-se que ambas utilizam o mesmo controlador robusto definido na seção \ref{subsec:res:control}, diferindo apenas no tipo de observador de estados empregado.
