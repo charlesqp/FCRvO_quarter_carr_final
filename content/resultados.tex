@@ -257,7 +257,7 @@ A figuras \ref{fig:estatdos_luenberger} a seguir mostram a evolução dos estado
 \FloatBarrier
 
 Os dados das simulações temporais exibidos nas figuras \ref{fig:estatdos_erro_luenberg} e \ref{fig:estatdos_erro_UIO} foram compilados em tabelas onde se exibem o erro médio, o erro máximo e o erro RMS.
-
+\FloatBarrier
 \begin{table}[h!]
 \footnotesize
 \centering
@@ -287,8 +287,11 @@ Os dados das simulações temporais exibidos nas figuras \ref{fig:estatdos_erro_
         \hline
     \end{tabular} \label{tb:comparacao_erro_estados_UIO}\caption{Características do erro de estimação de estados com observador de Luenberger}
 \end{table}
+\FloatBarrier
 
-A análise dos resultados exibidos nas tabelas \ref{tb:comparacao_erro_estado_LUE} e \ref{tb:comparacao_erro_estados_UIO} indica que o observador de entradas desconhecidas performou muito melhor do que o observador de Luenberger para as variáveis de estado para as quais houve possibilidade de leitura. Para ambos os observadores, o erro médio sempre se aproxima de zero, como esperado. Sendo da ordem de $10\cdot^{-2}$ para o observador de Luenberger e $10\cdot^{-6}$ para o observador UIO nas variáveis de estado $Xc$ e $Vc$. O erro Máximo e o erro RMS tem relação com o erro de estimação durante a resposta transitória do sistema. Ambos são da ordem de $10\cdot^{0}$ para o observador UIO nas variáveis de estado $Xc$ e $Vc$. Enquanto isso, o erro máximo e o erro RMS alcança valores da ordem de $10\cdot^{-4}$ para $Vc$ e $10\cdot^{-9}$ para $Xc$ quando o observador UIO é empregado.
+A análise dos resultados exibidos nas tabelas \ref{tb:comparacao_erro_estado_LUE} e \ref{tb:comparacao_erro_estados_UIO} indica que o observador de entradas desconhecidas performou muito melhor do que o observador de Luenberger para todas as variáveis de estado. 
+Na análise do valor do erro médio, é esperado que este se aproxime de zero, esta métrica para o observador de Luenberger isso não aconteceu sob perturbação, para o observador UIO o valor do erro médio é próximo de zero com precisão de pelo menos $10\cdot^{-3}$. 
+O erro Máximo e o erro RMS tem relação com o erro de estimação durante a resposta transitória do sistema. Ambos são da ordem de $10\cdot^{0}$ para o observador UIO nas variáveis de estado $Xc$ e $Vc$. Enquanto isso, o erro máximo e o erro RMS alcança valores da ordem de $10\cdot^{-4}$ para $Vc$ e $10\cdot^{-9}$ para $Xc$ quando o observador UIO é empregado.
 É interessante notar que a ordem de grandeza do erro para as variáveis $Xw$ e $Vw$ são idênticas em ambos os casos. Isso pode ser explicado pela ausência da informação medida dessas variáveis na matriz $C$ do sistema. Ao observar os gráficos destas variáveis de estado em ambos os observadores, nota-se que o valor estimado de ambas é próximo de zero em ambos os observadores.
 
 \subsection{Comparação da estratégia de controle da transmissão de vibrações}
