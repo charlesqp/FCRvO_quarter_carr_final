@@ -42,13 +42,17 @@ Para a matriz $\mathbf{C}$ consideraremos ser possível a leitura de todos os es
         \mathbf{C}=
     \end{split}
     \begin{bmatrix}
-        1&0&0&0&\\
+        1&0&-1&0&\\
         0&1&0&0&\\
+        0&0&0&1&\\
+        0&0&0&0&\\        
     \end{bmatrix};\ \
     \begin{split}
         \mathbf{D_u}= 
     \end{split};\ \
     \begin{bmatrix}
+        0&\\
+        0&\\
         0&\\
         0&\\
     \end{bmatrix};\ \
@@ -58,8 +62,12 @@ Para a matriz $\mathbf{C}$ consideraremos ser possível a leitura de todos os es
     \begin{bmatrix}
         0&\\
         0&\\
+        0&\\
+        0&\\
     \end{bmatrix};\ \
 \end{equation}
+
+Nesta configuração, a saída $y1$ é o curso da suspensão, a saída $y2$ é a velocidade vertical da massa principal e a saída $y3$ é a velocidade vertical da massa das rodas.
 
 \subsection{Especificação da região de \( \mathcal{D}\)-estabilidade desejada}
 Deseja-se um valor de Máximo overshoot percentual de $M_O \leq 10$ \% e Tempo de acomodação para a faixa de tolerância de 2 \% $T_S \leq 0.5$ s. 
@@ -103,10 +111,10 @@ Considerando o sistema no espaço de estados apresentado em \eqref{eq:dsta:linsy
 \begin{equation*} \label{eq:ganhoscontrolador}
     K^'=
     \begin{bmatrix}
-        -514929.0792&\\	
-        -51637.9194&\\	
-        791876.7347&\\
-        2492.4857&\\
+        -533009.5068&\\	
+        -53068.2892&\\	
+        808655.8099&\\
+        2269.8250&\\
     \end{bmatrix}
 \end{equation*}
 
@@ -133,15 +141,59 @@ Desta maneira, foi encontrada a seguinte matriz de ganhos de realimentação par
         \mathbf{L}=\
     \end{split}
     \begin{bmatrix}
-       -14634.2594& -14634.2594& -14634.2594& -14634.2594&\\
-        23918.8824&  23918.8824&  23918.8824&  23918.8824&\\
-        -1401.1937&  -1401.1937&  -1401.1937&  -1401.1937&\\
-        -6800.803 &  -6800.803 &  -6800.803 &  -6800.803 &\\
+       -14726.1365& -14726.1365& -14726.1365& -14726.1365&\\
+        21127.9445&  21127.9445&  21127.9445&  21127.9445&\\
+        -1416.1998&  -1416.1998&  -1416.1998&  -1416.1998&\\
+        -6735.3815&  -6735.3815&  -6735.3815&  -6735.3815&\\
     \end{bmatrix}
 \end{equation}
-
+ 
 \subsection{Observador de entradas desconhecidas}
-Aplicando o Teorema \ref{theo:UIO}, obteve-se um limitante $\gamma=2.9084\cdot10^{-5}$. 
+Aplicando o Teorema \ref{theo:UIO}, as condições LMIs são satisfeitas e obteve-se um limitante $\gamma=1$ e um residuo de $res1.5215\cdot10^{-11}$. As matrizes constantes obtidas para o Observador são exibidas a seguir
+
+\begin{equation*}\label{ed:UIO:Ah}
+    \begin{split}
+        \mathbf{A_h} =
+        \begin{bmatrix}
+            -0.9182&     0.1101&   0.0273&  0.0000&\\
+            -15.0148& -146.6523& 15.0148&  0.0000&\\
+              0.0273&   -0.1101& -0.9182& -0.0000&\\
+              0.0000&   0.0000& -0.0000& -0.9455&\\
+        \end{bmatrix}
+    \end{split}
+\end{equation*}
+
+\begin{equation}\label{ed:UIO:L}
+    \begin{split}
+        \mathbf{L} =
+        \begin{bmatrix}
+              0.4727& 0.8899& 0.0000& 0&\\
+            -76.9555& 143.9127& 2.7395& 0&\\
+             -0.4727& 0.1101& 1.0000& 0&\\
+             -0.0000& -0.0000& 0.0000& 0&\\
+        \end{bmatrix}
+    \end{split}
+\end{equation}
+\begin{equation*}\label{ed:UIO:E_Bh}
+    \begin{split}
+        \mathbf{E} =
+        \begin{bmatrix}
+            0& 0& 0& 0&\\
+            0& 0& 0& 0&\\
+            0& 0& 0& 0&\\
+            0& 0&-1& 0&\\
+        \end{bmatrix}
+    \end{split}
+    \begin{split}
+        \mathbf{B_h} =
+        \begin{bmatrix}
+            0&\\
+            -0.0053&\\
+            0&\\
+            0&\\
+        \end{bmatrix}
+    \end{split}
+\end{equation*}
 
 \subsection{Comparação do erro de estimação de estado}
 
@@ -214,9 +266,9 @@ Os dados das simulações temporais exibidos nas figuras \ref{fig:estatdos_erro_
         Luenberger & $X_c$& $V_c$& $X_w$& $V_w$\\
         \hline
         \hline
-         Erro Médio&  0.0113& -0.0112& 0.0085&   0.0379\\ 
-         Erro Máximo& 4.1065&  4.1061& 4.0454& 200.7384\\ 
-         Erro RMS&    1.5826&  1.5824& 1.5679&  81.3797\\
+         Erro Médio&  1.2892&   -7.5121&   -4.6548&   10.9155\\ 
+         Erro Máximo& 76.2538&  157.5491&  123.1720&  202.6507\\ 
+         Erro RMS&    22.7196&   58.9452&   53.7731&   93.5771\\
         \hline
     \end{tabular} \label{tb:comparacao_erro_estado_LUE}\caption{Características do erro de estimação de estados com observador de Luenberger}
 \end{table}
@@ -229,9 +281,9 @@ Os dados das simulações temporais exibidos nas figuras \ref{fig:estatdos_erro_
         UIO & $X_c$& $V_c$& $X_w$& $V_w$\\
         \hline
         \hline
-         Erro Médio& -0.0000& 0.0000& 0.0062&   0.0430\\ 
-         Erro Máximo& 0.0000& 0.0008& 4.0418& 200.7711\\ 
-         Erro RMS&    0.0000& 0.0003& 1.5685&  81.4757\\
+         Erro Médio&  0.0090&   -0.0198&    0.0089&   -0.0000\\ 
+         Erro Máximo& 0.0814&    0.5692&    0.0821&    0.0000\\ 
+         Erro RMS&    0.0253&    0.2258&    0.0258&    0.0000\\
         \hline
     \end{tabular} \label{tb:comparacao_erro_estados_UIO}\caption{Características do erro de estimação de estados com observador de Luenberger}
 \end{table}
@@ -299,5 +351,29 @@ Os dados das simulações temporais exibidos nas figuras \ref{fig:eval_cntrol_LU
 A análise dos resultados exibidos nas tabelas \ref{tb:comparacao_controle_LUE} e \ref{tb:comparacao_controle_UIO} indica que o observador de entradas desconhecidas performou muito melhor do que o observador de Luenberger. Os valores médios de todas as variáveis de interesse, $V_c$ $A_c$ e $Jerk_c$, estão próximos de zero, como esperado. Os valores máximos das variáveis são menores quando se emprega o observador UIO na malha de controle, sendo aproximadamente 3 vezes menor para todas as variáveis. Comportamento semelhante pode ser observado para o valor RMS das variáveis. 
 Uma hipótese explicativa para este melhor desempenho da malha de controle é que a eficiência da estratégia de controle seja proporcional ao erro de estimativa da variável de estado. Como o observador UIO alcança valores muito menores de erro máximo e RMS na estimativa dos estados do sistema em comparação com o observador de Luenberger, este alcança melhor desempenho no controle em malha fechada.
 \subsection{Comparação do desempenho do controlador robusto com \( \mathcal{D}\)-estabilidade garantida para perturbação em degrau}
-Escolheu-se avaliar a eficiência das estratégias de controle utilziando o observador UIO em conjunto com o controlador robusto com \( \mathcal{D}\)-estabilidade garantida para uma perturbação em degrau unitário. Para isto, serão avaliados as leituras das variáveis do sistema $Xc$ e $VC$ quando o sistema é perturbado por uma entrada em degrau unitário. Os resultados obtidos pelo sistema controlado são comparados com os resultados do sistema em malha aberta para avaliação se os parâmetros de desempenho temporal são atendidos. As simulações foram realizadas para múltiplos valores do parâmetro $\delta$, com $-100kg\leq \delta\leq 100kg$ em passos de 5kg. O resultado da simulação temporal e exibido nas figuras a seguir:
+Escolheu-se avaliar a eficiência das estratégias de controle utilziando o observador UIO em conjunto com o controlador robusto com \( \mathcal{D}\)-estabilidade garantida para uma perturbação em degrau unitário. Para isto, serão avaliados as leituras das variáveis do sistema $Xc$ e $VC$ quando o sistema é perturbado por uma entrada em degrau unitário. Os resultados obtidos pelo sistema controlado são comparados com os resultados do sistema em malha aberta para avaliação se os parâmetros de desempenho temporal são atendidos. As simulações foram realizadas para múltiplos valores do parâmetro $\delta$, com $-100kg\leq \delta\leq 100kg$ em passos de 5kg. O resultado da simulação temporal e exibido nas figuras \ref{fig:eval_cntrol_OPEN_step} e \ref{fig:eval_cntrol_UIO_step}  a seguir:
 
+\FloatBarrier
+\begin{figure}[htbp]
+    \begin{centering}
+    \includegraphics[width=8cm]{img/eval_cntrol_OPEN_step.png} 
+    \caption{Resposta a perturbação em degrau do sistema em malha aberta}
+    \label{fig:eval_cntrol_OPEN_step}
+    \end{centering}
+\end{figure}
+\FloatBarrier
+
+\FloatBarrier
+\begin{figure}[htbp]
+    \begin{centering}
+    \includegraphics[width=8cm]{img/eval_cntrol_UIO_step.png} 
+    \caption{Resposta a perturbação em degrau do sistema em malha fechada com o controlador robusto e o observador de entrada desconhecida}
+    \label{fig:eval_cntrol_UIO_step}
+    \end{centering}
+\end{figure}
+\FloatBarrier
+
+Para o sistema funcionando em malha aberta é possível observar nos gráficos da figura \ref{fig:eval_cntrol_OPEN_step} que a amplitude e duração das oscilações da posição vertical da massa principal, $Xc$, não são amortecidas para todos os valores de $\delta$. Para uma perturbação $Xr$ em degrau unitário aplicada em $t=1$, o que equivale ao carro atropelar um barranco de 1 metro de altura, obtemos valor máximo de oscilação de $1.75m$ com tempo de acomodação de $7s$. Observa-se que o valor final da variável $Xc$ é sempre idêntico ao valor final da perturbação unitária. Para a variável velocidade de deslocamento vertical da massa principal, $Vc$, obtém-se um valor de pico de $10m\cdot s^{-1}$ em alguns casos com tempo de acomodação igual ao de $Xc$.  
+Para o sistema funcionando em malha aberta é possível observar nos gráficos da figura \ref{fig:eval_cntrol_UIO_step} que a amplitude e duração das oscilações da posição vertical da massa principal, $Xc$, são rapidamente amortecidas para todos os valores de $\delta$. O sistema atinge acomodação em $0.5s$ para todos os valores de $delta$. As oscilações do transitório não superam o valor final da variável de forma visível. O valor final da variável $Xc$ neste caso é $0.2$. Não é zero mas é menor do que para o sistema não controlado, o que indica que seria necessário uma correção integral para uma rejeição a perturbação perfeita. O que indica que a perturbação foi absorvida principalmente pela deformação do conjunto amortecedor e mola, transferindo menos movimento ao veiculo.
+Para a variável velocidade de deslocamento vertical da massa principal, $Vc$, obtém-se um valor de pico de $5m\cdot s^{-1}$ em alguns casos com tempo de acomodação de $0.5s$.  
+Os resultados indicam que o controlador robusto com \( \mathcal{D}\)-estabilidade garantida foi eficiente em encontrar um vetor de ganhos de realimentação de estados que garantisse a acomodação a perturbação desejada, com máximo overshoot percentual de $M_O \leq 10$ \% e tempo de acomodação para a faixa de tolerância de 2 \% $T_S \leq 0.5$ s. 
